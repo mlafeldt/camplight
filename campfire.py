@@ -8,6 +8,7 @@ __author__ = "Mathias Lafeldt <mathias.lafeldt@gmail.com>"
 __data__ = [ 'Campfire', 'CampfireRoom' ]
 
 import urllib2
+import simplejson as json
 
 class Campfire(object):
     def __init__(self, url, token):
@@ -19,30 +20,32 @@ class Campfire(object):
         self.url_opener = urllib2.build_opener(auth_handler)
 
     def get(self, path):
-        return self.url_opener.open(self.url + path).read()
+        response = self.url_opener.open(self.url + path).read()
+        return json.loads(response)
 
     def put(self, path, data=''):
         request = urllib2.Request(self.url + path, data)
-        request.add_header('Content-Type', 'application/xml')
-        return self.url_opener.open(request).read()
+        request.add_header('Content-Type', 'application/json')
+        response = self.url_opener.open(request).read().strip()
+        return json.loads(response) if len(response) else None
 
     def rooms(self):
-        return self.get('/rooms.xml')
+        return self.get('/rooms.json')['rooms']
 
     def room(self, room_id):
         return CampfireRoom(self, room_id)
 
     def user(self, user_id):
-        return self.get('/users/%s.xml' % user_id)
+        return self.get('/users/%s.json' % user_id)['user']
 
     def me(self):
-        return self.get('/users/me.xml')
+        return self.get('/users/me.json')['user']
 
     def presence(self):
-        return self.get('/presence.xml')
+        return self.get('/presence.json')['rooms']
 
     def search(self, term):
-        return self.get('/search/%s.xml' % term)
+        return self.get('/search/%s.json' % term)['messages']
 
 
 class CampfireRoom(object):
@@ -57,35 +60,37 @@ class CampfireRoom(object):
         return self.campfire.put('/room/%s%s' % (self.room_id, path), data)
 
     def show(self):
-        return self.get('.xml')
+        return self.get('.json')['room']
 
     # FIXME
     def update(self, name='', topic=''):
-        return self.put('.xml', '<room><name>%s</name><topic>%s</topic></room>' % (name, topic))
+        data = { 'room': { 'name': name, 'topic': topic } }
+        return self.put('/speak.json', json.dumps(data))
 
     def recent(self):
-        return self.get('/recent.xml')
+        return self.get('/recent.json')['messages']
 
     def transcript(self):
-        return self.get('/transcript.xml')
+        return self.get('/transcript.json')['messages']
 
     def uploads(self):
-        return self.get('/uploads.xml')
+        return self.get('/uploads.json')['uploads']
 
     def join(self):
-        return self.put('/join.xml')
+        return self.put('/join.json')
 
     def leave(self):
-        return self.put('/leave.xml')
+        return self.put('/leave.json')
 
     def lock(self):
-        return self.put('/lock.xml')
+        return self.put('/lock.json')
 
     def unlock(self):
-        return self.put('/unlock.xml')
+        return self.put('/unlock.json')
 
     def speak(self, message, type='TextMessage'):
-        return self.put('/speak.xml', '<message><body>%s</body><type>%s</type></message>' % (message, type))
+        data = { 'message': { 'body': message, 'type': type } }
+        return self.put('/speak.json', json.dumps(data))['message']
 
     def paste(self, message):
         return self.speak(message, 'PasteMessage')

@@ -30,3 +30,10 @@ Client Usage
     $ CAMPFIRE_ROOM=12345 ./camplight recent
     $ CAMPFIRE_ROOM="Develop" ./camplight join
     $ CAMPFIRE_ROOM="Develop" ./camplight speak "You should check out Camplight"
+
+
+Contact
+-------
+
+* Web: <https://github.com/misfire/Camplight>
+* Mail: <mathias.lafeldt@gmail.com>

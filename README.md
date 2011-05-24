@@ -1,12 +1,12 @@
-campfire.py
-===========
+Camplight
+=========
 
-campfire.py is a lightweight Python implementation of the Campfire API.
+Camplight is a lightweight Python implementation of the Campfire API.
 
 API Usage
 ---------
 
-    from campfire import *
+    from camplight import Campfire
 
     cf = Campfire('https://your-subdomain.campfirenow.com', 'your_auth_token')
     print cf.rooms()

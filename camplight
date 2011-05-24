@@ -3,13 +3,13 @@
 """
 Campfire client
 
-Usage: campfire-client <command> [<args>]
+Usage: camplight <command> [<args>]
 
 Written by Mathias Lafeldt <mathias.lafeldt@gmail.com>
 """
 
 import sys, os
-from campfire import *
+from camplight import Campfire
 
 def handle_cmd(campfire, args):
     cmd = args[1]

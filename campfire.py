@@ -33,6 +33,10 @@ class Campfire(object):
         return self.get('/rooms.json')['rooms']
 
     def room(self, id):
+        try:
+            int(id)
+        except:
+            id = [r['id'] for r in self.rooms() if r['name'] == id][0]
         return CampfireRoom(self, id)
 
     def user(self, id='me'):

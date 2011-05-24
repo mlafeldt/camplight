@@ -4,7 +4,7 @@ Campfire API implementation in Python
 The API is described at http://developer.37signals.com/campfire/index
 """
 
-__author__ = "Mathias Lafeldt <mathias.lafeldt@gmail.com>"
+__author__ = 'Mathias Lafeldt <mathias.lafeldt@gmail.com>'
 __data__ = [ 'Campfire', 'CampfireRoom' ]
 
 import urllib2
@@ -19,15 +19,15 @@ class Campfire(object):
         auth_handler = urllib2.HTTPBasicAuthHandler(passwd_manager)
         self.url_opener = urllib2.build_opener(auth_handler)
 
-    def get(self, path):
+    def get(self, path, decode=True):
         response = self.url_opener.open(self.url + path).read()
-        return json.loads(response)
+        return json.loads(response) if decode else response
 
-    def put(self, path, data=''):
+    def put(self, path, data='', decode=True):
         request = urllib2.Request(self.url + path, data)
         request.add_header('Content-Type', 'application/json')
-        response = self.url_opener.open(request).read().strip()
-        return json.loads(response) if len(response) else None
+        response = self.url_opener.open(request).read()
+        return json.loads(response) if decode else response
 
     def rooms(self):
         return self.get('/rooms.json')['rooms']
@@ -53,19 +53,19 @@ class CampfireRoom(object):
         self.campfire = campfire
         self.room_id = room_id
 
-    def get(self, path):
-        return self.campfire.get('/room/%s%s' % (self.room_id, path))
+    def get(self, path, **kwargs):
+        return self.campfire.get('/room/%s%s' % (self.room_id, path), **kwargs)
 
-    def put(self, path, data=''):
-        return self.campfire.put('/room/%s%s' % (self.room_id, path), data)
+    def put(self, path, **kwargs):
+        return self.campfire.put('/room/%s%s' % (self.room_id, path), **kwargs)
 
     def show(self):
         return self.get('.json')['room']
 
-    # FIXME
+    # FIXME can't get it to work
     def update(self, name='', topic=''):
         data = { 'room': { 'name': name, 'topic': topic } }
-        return self.put('/speak.json', json.dumps(data))
+        return self.put('/speak.json', data=json.dumps(data))
 
     def recent(self):
         return self.get('/recent.json')['messages']
@@ -77,20 +77,20 @@ class CampfireRoom(object):
         return self.get('/uploads.json')['uploads']
 
     def join(self):
-        return self.put('/join.json')
+        self.put('/join.json', decode=False)
 
     def leave(self):
-        return self.put('/leave.json')
+        self.put('/leave.json', decode=False)
 
     def lock(self):
-        return self.put('/lock.json')
+        self.put('/lock.json', decode=False)
 
     def unlock(self):
-        return self.put('/unlock.json')
+        self.put('/unlock.json', decode=False)
 
     def speak(self, message, type='TextMessage'):
         data = { 'message': { 'body': message, 'type': type } }
-        return self.put('/speak.json', json.dumps(data))['message']
+        return self.put('/speak.json', data=json.dumps(data))['message']
 
     def paste(self, message):
         return self.speak(message, 'PasteMessage')

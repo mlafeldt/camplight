@@ -32,14 +32,11 @@ class Campfire(object):
     def rooms(self):
         return self.get('/rooms.json')['rooms']
 
-    def room(self, room_id):
-        return CampfireRoom(self, room_id)
+    def room(self, id):
+        return CampfireRoom(self, id)
 
-    def user(self, user_id):
-        return self.get('/users/%s.json' % user_id)['user']
-
-    def me(self):
-        return self.get('/users/me.json')['user']
+    def user(self, id='me'):
+        return self.get('/users/%s.json' % id)['user']
 
     def presence(self):
         return self.get('/presence.json')['rooms']

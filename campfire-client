@@ -17,8 +17,6 @@ def handle_cmd(campfire, args):
         return campfire.rooms()
     elif cmd == 'user':
         return campfire.user(args[2])
-    elif cmd == 'me':
-        return campfire.me()
     elif cmd == 'presence':
         return campfire.presence()
     elif cmd == 'search':

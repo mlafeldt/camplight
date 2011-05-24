@@ -24,10 +24,15 @@ API Usage
 Client Usage
 ------------
 
+    $ export CAMPFIRE_URL=https://your-subdomain.campfirenow.com
+    $ export CAMPFIRE_TOKEN=your_auth_token
+
     $ ./camplight rooms
     $ ./camplight presence
     $ ./camplight user me
+
     $ CAMPFIRE_ROOM=12345 ./camplight recent
+
     $ CAMPFIRE_ROOM="Develop" ./camplight join
     $ CAMPFIRE_ROOM="Develop" ./camplight speak "You should check out Camplight"
 

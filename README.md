@@ -3,6 +3,7 @@ Camplight
 
 Camplight is a lightweight Python implementation of the Campfire API.
 
+
 API Usage
 ---------
 
@@ -18,3 +19,14 @@ API Usage
     room.speak('Campfire rocks!')
     room.play('trombone')
     room.leave()
+
+
+Client Usage
+------------
+
+    $ ./camplight rooms
+    $ ./camplight presence
+    $ ./camplight user me
+    $ CAMPFIRE_ROOM=12345 ./camplight recent
+    $ CAMPFIRE_ROOM="Develop" ./camplight join
+    $ CAMPFIRE_ROOM="Develop" ./camplight speak "You should check out Camplight"

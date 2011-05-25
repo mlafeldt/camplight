@@ -5,7 +5,7 @@ The API is described at http://developer.37signals.com/campfire/index
 """
 
 __author__ = 'Mathias Lafeldt <mathias.lafeldt@gmail.com>'
-__data__ = [ 'Campfire', 'CampfireRoom' ]
+__data__ = ['Campfire', 'CampfireRoom']
 
 import urllib2
 import simplejson as json
@@ -65,7 +65,7 @@ class CampfireRoom(object):
 
     # TODO support HTTP PUT
     def update(self, name='', topic=''):
-        data = { 'room': { 'name': name, 'topic': topic } }
+        data = {'room': {'name': name, 'topic': topic}}
         return self.put('.json', data=data)
 
     def recent(self):
@@ -90,7 +90,7 @@ class CampfireRoom(object):
         self.post('/unlock.json')
 
     def speak(self, message, type='TextMessage'):
-        data = { 'message': { 'body': message, 'type': type } }
+        data = {'message': {'body': message, 'type': type}}
         return self.post('/speak.json', data=data)['message']
 
     def paste(self, message):

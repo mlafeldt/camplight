@@ -29,6 +29,13 @@ class Campfire(object):
         response = self.url_opener.open(request).read()
         return json.loads(response) if response.startswith('{') else {}
 
+    def put(self, path, data={}):
+        request = urllib2.Request(self.url + path, json.dumps(data))
+        request.add_header('Content-Type', 'application/json')
+        request.get_method = lambda: 'PUT'
+        response = self.url_opener.open(request).read()
+        return json.loads(response) if response.startswith('{') else {}
+
     def rooms(self):
         return self.get('/rooms.json')['rooms']
 
@@ -60,13 +67,17 @@ class CampfireRoom(object):
     def post(self, path, **kwargs):
         return self.campfire.post('/room/%s%s' % (self.room_id, path), **kwargs)
 
+    def put(self, path, **kwargs):
+        return self.campfire.put('/room/%s%s' % (self.room_id, path), **kwargs)
+
     def show(self):
         return self.get('.json')['room']
 
-    # TODO support HTTP PUT
-    def update(self, name='', topic=''):
-        data = {'room': {'name': name, 'topic': topic}}
-        return self.put('.json', data=data)
+    def set_name(self, name):
+        self.put('.json', data={'room': {'name': name}})
+
+    def set_topic(self, topic):
+        self.put('.json', data={'room': {'topic': topic}})
 
     def recent(self):
         return self.get('/recent.json')['messages']

@@ -19,15 +19,15 @@ class Campfire(object):
         auth_handler = urllib2.HTTPBasicAuthHandler(passwd_manager)
         self.url_opener = urllib2.build_opener(auth_handler)
 
-    def get(self, path, decode=True):
+    def get(self, path):
         response = self.url_opener.open(self.url + path).read()
-        return json.loads(response) if decode else response
+        return json.loads(response) if response.startswith('{') else {}
 
-    def post(self, path, data='', decode=True):
-        request = urllib2.Request(self.url + path, data)
+    def post(self, path, data={}):
+        request = urllib2.Request(self.url + path, json.dumps(data))
         request.add_header('Content-Type', 'application/json')
         response = self.url_opener.open(request).read()
-        return json.loads(response) if decode else response
+        return json.loads(response) if response.startswith('{') else {}
 
     def rooms(self):
         return self.get('/rooms.json')['rooms']
@@ -66,7 +66,7 @@ class CampfireRoom(object):
     # TODO support HTTP PUT
     def update(self, name='', topic=''):
         data = { 'room': { 'name': name, 'topic': topic } }
-        return self.put('.json', data=json.dumps(data))
+        return self.put('.json', data=data)
 
     def recent(self):
         return self.get('/recent.json')['messages']
@@ -78,20 +78,20 @@ class CampfireRoom(object):
         return self.get('/uploads.json')['uploads']
 
     def join(self):
-        self.post('/join.json', decode=False)
+        self.post('/join.json')
 
     def leave(self):
-        self.post('/leave.json', decode=False)
+        self.post('/leave.json')
 
     def lock(self):
-        self.post('/lock.json', decode=False)
+        self.post('/lock.json')
 
     def unlock(self):
-        self.post('/unlock.json', decode=False)
+        self.post('/unlock.json')
 
     def speak(self, message, type='TextMessage'):
         data = { 'message': { 'body': message, 'type': type } }
-        return self.post('/speak.json', data=json.dumps(data))['message']
+        return self.post('/speak.json', data=data)['message']
 
     def paste(self, message):
         return self.speak(message, 'PasteMessage')

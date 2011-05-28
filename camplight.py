@@ -25,25 +25,28 @@ class Campfire(object):
         auth_handler = urllib2.HTTPBasicAuthHandler(passwd_manager)
         self.url_opener = urllib2.build_opener(auth_handler)
 
+    def _build_url(self, path):
+        return self.url + path + '.json'
+
     def get(self, path):
-        response = self.url_opener.open(self.url + path).read()
+        response = self.url_opener.open(self._build_url(path)).read()
         return json_decode(response)
 
     def post(self, path, data={}):
-        request = urllib2.Request(self.url + path, json_encode(data))
+        request = urllib2.Request(self._build_url(path), json_encode(data))
         request.add_header('Content-Type', 'application/json')
         response = self.url_opener.open(request).read()
         return json_decode(response)
 
     def put(self, path, data={}):
-        request = urllib2.Request(self.url + path, json.dumps(data))
+        request = urllib2.Request(self._build_url(path), json_encode(data))
         request.add_header('Content-Type', 'application/json')
         request.get_method = lambda: 'PUT'
         response = self.url_opener.open(request).read()
         return json_decode(response)
 
     def rooms(self):
-        return self.get('/rooms.json')['rooms']
+        return self.get('/rooms')['rooms']
 
     def room(self, id):
         try:
@@ -53,13 +56,13 @@ class Campfire(object):
         return CampfireRoom(self, id)
 
     def user(self, id='me'):
-        return self.get('/users/%s.json' % id)['user']
+        return self.get('/users/%s' % id)['user']
 
     def presence(self):
-        return self.get('/presence.json')['rooms']
+        return self.get('/presence')['rooms']
 
     def search(self, term):
-        return self.get('/search/%s.json' % term)['messages']
+        return self.get('/search/%s' % term)['messages']
 
 
 class CampfireRoom(object):
@@ -67,48 +70,48 @@ class CampfireRoom(object):
         self.campfire = campfire
         self.room_id = room_id
 
-    def get(self, path, **kwargs):
+    def get(self, path='', **kwargs):
         return self.campfire.get('/room/%s%s' % (self.room_id, path), **kwargs)
 
-    def post(self, path, **kwargs):
+    def post(self, path='', **kwargs):
         return self.campfire.post('/room/%s%s' % (self.room_id, path), **kwargs)
 
-    def put(self, path, **kwargs):
+    def put(self, path='', **kwargs):
         return self.campfire.put('/room/%s%s' % (self.room_id, path), **kwargs)
 
     def show(self):
-        return self.get('.json')['room']
+        return self.get()['room']
 
     def set_name(self, name):
-        self.put('.json', data={'room': {'name': name}})
+        self.put(data={'room': {'name': name}})
 
     def set_topic(self, topic):
-        self.put('.json', data={'room': {'topic': topic}})
+        self.put(data={'room': {'topic': topic}})
 
     def recent(self):
-        return self.get('/recent.json')['messages']
+        return self.get('/recent')['messages']
 
     def transcript(self):
-        return self.get('/transcript.json')['messages']
+        return self.get('/transcript')['messages']
 
     def uploads(self):
-        return self.get('/uploads.json')['uploads']
+        return self.get('/uploads')['uploads']
 
     def join(self):
-        self.post('/join.json')
+        self.post('/join')
 
     def leave(self):
-        self.post('/leave.json')
+        self.post('/leave')
 
     def lock(self):
-        self.post('/lock.json')
+        self.post('/lock')
 
     def unlock(self):
-        self.post('/unlock.json')
+        self.post('/unlock')
 
     def speak(self, message, type='TextMessage'):
         data = {'message': {'body': message, 'type': type}}
-        return self.post('/speak.json', data=data)['message']
+        return self.post('/speak', data=data)['message']
 
     def paste(self, message):
         return self.speak(message, 'PasteMessage')

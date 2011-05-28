@@ -10,6 +10,12 @@ __data__ = ['Campfire', 'CampfireRoom']
 import urllib2
 import simplejson as json
 
+def json_encode(obj={}):
+    return json.dumps(obj)
+
+def json_decode(s):
+    return json.loads(s) if s.startswith('{') else {}
+
 class Campfire(object):
     def __init__(self, url, token):
         self.url = url
@@ -21,20 +27,20 @@ class Campfire(object):
 
     def get(self, path):
         response = self.url_opener.open(self.url + path).read()
-        return json.loads(response) if response.startswith('{') else {}
+        return json_decode(response)
 
     def post(self, path, data={}):
-        request = urllib2.Request(self.url + path, json.dumps(data))
+        request = urllib2.Request(self.url + path, json_encode(data))
         request.add_header('Content-Type', 'application/json')
         response = self.url_opener.open(request).read()
-        return json.loads(response) if response.startswith('{') else {}
+        return json_decode(response)
 
     def put(self, path, data={}):
         request = urllib2.Request(self.url + path, json.dumps(data))
         request.add_header('Content-Type', 'application/json')
         request.get_method = lambda: 'PUT'
         response = self.url_opener.open(request).read()
-        return json.loads(response) if response.startswith('{') else {}
+        return json_decode(response)
 
     def rooms(self):
         return self.get('/rooms.json')['rooms']

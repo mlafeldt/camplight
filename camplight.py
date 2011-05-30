@@ -5,7 +5,7 @@ The API is described at http://developer.37signals.com/campfire/index
 """
 
 __author__ = 'Mathias Lafeldt <mathias.lafeldt@gmail.com>'
-__data__ = ['Campfire', 'Room']
+__data__ = ['Campfire', 'Room', 'Sound']
 
 import urllib2
 import simplejson as json
@@ -118,3 +118,9 @@ class Room(object):
 
     def play(self, sound):
         return self.speak(sound, 'SoundMessage')
+
+
+class Sound(object):
+    crickets = 'crickets'
+    rimshot = 'rimshot'
+    trombone = 'trombone'

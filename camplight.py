@@ -7,7 +7,7 @@ The API is described at http://developer.37signals.com/campfire/index
 __author__ = 'Mathias Lafeldt <mathias.lafeldt@gmail.com>'
 __all__ = ['Campfire', 'Room', 'Sound']
 
-import urllib2
+import urllib, urllib2
 import simplejson as json
 
 def json_encode(obj={}):
@@ -62,7 +62,7 @@ class Campfire(object):
         return self.get('/presence')['rooms']
 
     def search(self, term):
-        return self.get('/search/%s' % term)['messages']
+        return self.get('/search/%s' % urllib.quote_plus(term))['messages']
 
 
 class Room(object):

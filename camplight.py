@@ -5,7 +5,7 @@ The API is described at http://developer.37signals.com/campfire/index
 """
 
 __author__ = 'Mathias Lafeldt <mathias.lafeldt@gmail.com>'
-__data__ = ['Campfire', 'Room', 'Sound']
+__all__ = ['Campfire', 'Room', 'Sound']
 
 import urllib2
 import simplejson as json

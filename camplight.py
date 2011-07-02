@@ -7,10 +7,13 @@ The API is described at http://developer.37signals.com/campfire/index
 __author__ = 'Mathias Lafeldt <mathias.lafeldt@gmail.com>'
 __all__ = ['Campfire', 'Room', 'Sound']
 
-import urllib, urllib2
+import urllib
+import urllib2
 import simplejson as json
 
-def json_encode(obj={}):
+def json_encode(obj=None):
+    if obj is None:
+        obj = {}
     return json.dumps(obj)
 
 def json_decode(s):
@@ -20,9 +23,9 @@ class Campfire(object):
     def __init__(self, url, token):
         self.url = url
         self.token = token
-        passwd_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
-        passwd_manager.add_password(None, uri=self.url, user=self.token, passwd='X')
-        auth_handler = urllib2.HTTPBasicAuthHandler(passwd_manager)
+        passwd_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
+        passwd_mgr.add_password(None, uri=self.url, user=self.token, passwd='X')
+        auth_handler = urllib2.HTTPBasicAuthHandler(passwd_mgr)
         self.url_opener = urllib2.build_opener(auth_handler)
 
     def _build_url(self, path):
@@ -32,13 +35,13 @@ class Campfire(object):
         response = self.url_opener.open(self._build_url(path)).read()
         return json_decode(response)
 
-    def post(self, path, data={}):
+    def post(self, path, data=None):
         request = urllib2.Request(self._build_url(path), json_encode(data))
         request.add_header('Content-Type', 'application/json')
         response = self.url_opener.open(request).read()
         return json_decode(response)
 
-    def put(self, path, data={}):
+    def put(self, path, data=None):
         request = urllib2.Request(self._build_url(path), json_encode(data))
         request.add_header('Content-Type', 'application/json')
         request.get_method = lambda: 'PUT'
@@ -70,13 +73,19 @@ class Room(object):
         self.campfire = campfire
         self.room_id = room_id
 
-    def get(self, path='', **kwargs):
+    def get(self, path=None, **kwargs):
+        if path == None:
+            path = ''
         return self.campfire.get('/room/%s%s' % (self.room_id, path), **kwargs)
 
-    def post(self, path='', **kwargs):
+    def post(self, path=None, **kwargs):
+        if path == None:
+            path = ''
         return self.campfire.post('/room/%s%s' % (self.room_id, path), **kwargs)
 
-    def put(self, path='', **kwargs):
+    def put(self, path=None, **kwargs):
+        if path == None:
+            path = ''
         return self.campfire.put('/room/%s%s' % (self.room_id, path), **kwargs)
 
     def show(self):

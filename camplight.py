@@ -131,5 +131,8 @@ class Room(object):
 
 class Sound(object):
     crickets = 'crickets'
+    drama = 'drama'
+    greatjob = 'greatjob'
     rimshot = 'rimshot'
     trombone = 'trombone'
+    yeah = 'yeah'

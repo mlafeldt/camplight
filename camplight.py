@@ -138,8 +138,11 @@ class Sound(object):
     crickets = 'crickets'
     drama = 'drama'
     greatjob = 'greatjob'
+    live = 'live'
     rimshot = 'rimshot'
+    tmyk = 'tmyk'
     trombone = 'trombone'
+    vuvuzela = 'vuvuzela'
     yeah = 'yeah'
 
 

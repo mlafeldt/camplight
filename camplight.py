@@ -15,21 +15,25 @@ import urllib
 import urllib2
 import simplejson as json
 
+
 def json_encode(obj=None):
     if obj is None:
         obj = {}
     return json.dumps(obj)
+
 
 def json_decode(s):
     return json.loads(s) if s.startswith('{') else {}
 
 
 class Campfire(object):
+
     def __init__(self, url, token):
         self.url = url
         self.token = token
         passwd_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
-        passwd_mgr.add_password(None, uri=self.url, user=self.token, passwd='X')
+        passwd_mgr.add_password(None, uri=self.url, user=self.token,
+                                passwd='X')
         auth_handler = urllib2.HTTPBasicAuthHandler(passwd_mgr)
         self.url_opener = urllib2.build_opener(auth_handler)
 
@@ -74,6 +78,7 @@ class Campfire(object):
 
 
 class Room(object):
+
     def __init__(self, campfire, room_id):
         self.campfire = campfire
         self.room_id = room_id
@@ -86,7 +91,8 @@ class Room(object):
     def post(self, path=None, **kwargs):
         if path == None:
             path = ''
-        return self.campfire.post('/room/%s%s' % (self.room_id, path), **kwargs)
+        return self.campfire.post('/room/%s%s' % (self.room_id, path),
+                                  **kwargs)
 
     def put(self, path=None, **kwargs):
         if path == None:

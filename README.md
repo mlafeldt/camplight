@@ -31,5 +31,5 @@ See LICENSE file.
 Contact
 -------
 
-* Web: <https://github.com/misfire/Camplight>
+* Web: <https://github.com/mlafeldt/Camplight>
 * Mail: <mathias.lafeldt@gmail.com>

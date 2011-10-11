@@ -49,6 +49,9 @@ class Campfire(object):
     def __init__(self, request):
         self.request = request
 
+    def account(self):
+        return self.request.get('/account')['account']
+
     def rooms(self):
         return self.request.get('/rooms')['rooms']
 
@@ -139,7 +142,9 @@ if __name__ == '__main__':
     # TODO add proper option handling
     def handle_cmd(campfire, args):
         cmd = args[1]
-        if cmd == 'rooms':
+        if cmd == 'account':
+            return campfire.account()
+        elif cmd == 'rooms':
             return campfire.rooms()
         elif cmd == 'user':
             return campfire.user(args[2])

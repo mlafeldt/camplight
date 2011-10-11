@@ -52,15 +52,18 @@ class Campfire(object):
     def rooms(self):
         return self.request.get('/rooms')['rooms']
 
-    def room(self, id):
+    def room(self, room_id):
         try:
-            int(id)
-        except:
-            id = [r['id'] for r in self.rooms() if r['name'] == id][0]
-        return Room(self.request, id)
+            int(room_id)
+        except (TypeError, ValueError, OverflowError):
+            room_id = [r['id'] for r in self.rooms()
+                       if r['name'] == room_id][0]
+        return Room(self.request, room_id)
 
-    def user(self, id='me'):
-        return self.request.get('/users/%s' % id)['user']
+    def user(self, user_id=None):
+        if user_id is None:
+            user_id = 'me'
+        return self.request.get('/users/%s' % user_id)['user']
 
     def presence(self):
         return self.request.get('/presence')['rooms']

@@ -1,7 +1,7 @@
 Camplight
 =========
 
-Camplight is a standalone command-line client for Campfire written in Python.
+Camplight is a simple command-line client for Campfire written in Python.
 
 The Campfire API is documented here: http://developer.37signals.com/campfire/index
 

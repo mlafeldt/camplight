@@ -15,40 +15,33 @@ import requests
 import simplejson as json
 
 
-def json_encode(obj=None):
-    if obj is None:
-        obj = {}
-    return json.dumps(obj)
-
-
-def json_decode(s):
-    return json.loads(s) if s.startswith('{') else {}
-
-
 class Campfire(object):
 
     def __init__(self, url, token):
         self._url = url
         self._auth = (token, '')
 
-    def _request(self, method, path, **kwargs):
-        r = requests.request(method, self._url + path + '.json',
-                             auth=self._auth, **kwargs)
+    def _request(self, method, path, data=None):
+        headers = None
+        if data is not None:
+            data = json.dumps(data)
+            headers = {'Content-Type': 'application/json'}
+
+        final_url = self._url + path + '.json'
+        r = requests.request(method, final_url, data=data,
+                             headers=headers, auth=self._auth)
         r.raise_for_status()
-        return json_decode(r.content)
+        # XXX content check too sloppy?
+        return json.loads(r.content) if len(r.content) > 1 else None
 
-    def get(self, path):
-        return self._request('GET', path)
+    def get(self, *args, **kwargs):
+        return self._request('GET', *args, **kwargs)
 
-    def post(self, path, data=None):
-        return self._request('POST', path,
-                             headers={'Content-Type': 'application/json'},
-                             data=json_encode(data))
+    def post(self, *args, **kwargs):
+        return self._request('POST', *args, **kwargs)
 
-    def put(self, path, data=None):
-        return self._request('PUT', path,
-                             headers={'Content-Type': 'application/json'},
-                             data=json_encode(data))
+    def put(self, *args, **kwargs):
+        return self._request('PUT', *args, **kwargs)
 
     def rooms(self):
         return self.get('/rooms')['rooms']

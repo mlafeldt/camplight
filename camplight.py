@@ -11,8 +11,7 @@ The API is described at http://developer.37signals.com/campfire/index
 __author__ = 'Mathias Lafeldt <mathias.lafeldt@gmail.com>'
 __all__ = ['Campfire', 'Room', 'Sound']
 
-import urllib
-import urllib2
+import requests
 import simplejson as json
 
 
@@ -29,33 +28,27 @@ def json_decode(s):
 class Campfire(object):
 
     def __init__(self, url, token):
-        self.url = url
-        self.token = token
-        passwd_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
-        passwd_mgr.add_password(None, uri=self.url, user=self.token,
-                                passwd='X')
-        auth_handler = urllib2.HTTPBasicAuthHandler(passwd_mgr)
-        self.url_opener = urllib2.build_opener(auth_handler)
+        self._url = url
+        self._auth = (token, '')
 
-    def _build_url(self, path):
-        return self.url + path + '.json'
+    def _request(self, method, path, **kwargs):
+        r = requests.request(method, self._url + path + '.json',
+                             auth=self._auth, **kwargs)
+        r.raise_for_status()
+        return json_decode(r.content)
 
     def get(self, path):
-        response = self.url_opener.open(self._build_url(path)).read()
-        return json_decode(response)
+        return self._request('GET', path)
 
     def post(self, path, data=None):
-        request = urllib2.Request(self._build_url(path), json_encode(data))
-        request.add_header('Content-Type', 'application/json')
-        response = self.url_opener.open(request).read()
-        return json_decode(response)
+        return self._request('POST', path,
+                             headers={'Content-Type': 'application/json'},
+                             data=json_encode(data))
 
     def put(self, path, data=None):
-        request = urllib2.Request(self._build_url(path), json_encode(data))
-        request.add_header('Content-Type', 'application/json')
-        request.get_method = lambda: 'PUT'
-        response = self.url_opener.open(request).read()
-        return json_decode(response)
+        return self._request('PUT', path,
+                             headers={'Content-Type': 'application/json'},
+                             data=json_encode(data))
 
     def rooms(self):
         return self.get('/rooms')['rooms']
@@ -74,7 +67,7 @@ class Campfire(object):
         return self.get('/presence')['rooms']
 
     def search(self, term):
-        return self.get('/search/%s' % urllib.quote_plus(term))['messages']
+        return self.get('/search/%s' % term)['messages']
 
 
 class Room(object):

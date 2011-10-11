@@ -15,10 +15,10 @@ import requests
 import simplejson as json
 
 
-class Campfire(object):
+class Request(object):
 
     def __init__(self, url, token):
-        self._url = url
+        self.url = url
         self._auth = (token, '')
 
     def _request(self, method, path, data=None):
@@ -27,9 +27,9 @@ class Campfire(object):
             data = json.dumps(data)
             headers = {'Content-Type': 'application/json'}
 
-        final_url = self._url + path + '.json'
-        r = requests.request(method, final_url, data=data,
-                             headers=headers, auth=self._auth)
+        url = self.url + path + '.json'
+        r = requests.request(method, url, data=data, headers=headers,
+                             auth=self._auth)
         r.raise_for_status()
         # XXX content check too sloppy?
         return json.loads(r.content) if len(r.content) > 1 else None
@@ -43,81 +43,72 @@ class Campfire(object):
     def put(self, *args, **kwargs):
         return self._request('PUT', *args, **kwargs)
 
+
+class Campfire(object):
+
+    def __init__(self, request):
+        self.request = request
+
     def rooms(self):
-        return self.get('/rooms')['rooms']
+        return self.request.get('/rooms')['rooms']
 
     def room(self, id):
         try:
             int(id)
         except:
             id = [r['id'] for r in self.rooms() if r['name'] == id][0]
-        return Room(self, id)
+        return Room(self.request, id)
 
     def user(self, id='me'):
-        return self.get('/users/%s' % id)['user']
+        return self.request.get('/users/%s' % id)['user']
 
     def presence(self):
-        return self.get('/presence')['rooms']
+        return self.request.get('/presence')['rooms']
 
     def search(self, term):
-        return self.get('/search/%s' % term)['messages']
+        return self.request.get('/search/%s' % term)['messages']
 
 
 class Room(object):
 
-    def __init__(self, campfire, room_id):
-        self.campfire = campfire
+    def __init__(self, request, room_id):
+        self.request = request
         self.room_id = room_id
-
-    def get(self, path=None, **kwargs):
-        if path == None:
-            path = ''
-        return self.campfire.get('/room/%s%s' % (self.room_id, path), **kwargs)
-
-    def post(self, path=None, **kwargs):
-        if path == None:
-            path = ''
-        return self.campfire.post('/room/%s%s' % (self.room_id, path),
-                                  **kwargs)
-
-    def put(self, path=None, **kwargs):
-        if path == None:
-            path = ''
-        return self.campfire.put('/room/%s%s' % (self.room_id, path), **kwargs)
+        self._path = '/room/%s' % self.room_id
 
     def show(self):
-        return self.get()['room']
+        return self.request.get(self._path)['room']
 
     def set_name(self, name):
-        self.put(data={'room': {'name': name}})
+        self.request.put(self._path, data={'room': {'name': name}})
 
     def set_topic(self, topic):
-        self.put(data={'room': {'topic': topic}})
+        self.request.put(self._path, data={'room': {'topic': topic}})
 
     def recent(self):
-        return self.get('/recent')['messages']
+        return self.request.get(self._path + '/recent')['messages']
 
     def transcript(self):
-        return self.get('/transcript')['messages']
+        return self.request.get(self._path + '/transcript')['messages']
 
     def uploads(self):
-        return self.get('/uploads')['uploads']
+        return self.request.get(self._path + '/uploads')['uploads']
 
     def join(self):
-        self.post('/join')
+        self.request.post(self._path + '/join')
 
     def leave(self):
-        self.post('/leave')
+        self.request.post(self._path + '/leave')
 
     def lock(self):
-        self.post('/lock')
+        self.request.post(self._path + '/lock')
 
     def unlock(self):
-        self.post('/unlock')
+        self.request.post(self._path + '/unlock')
 
     def speak(self, message, type='TextMessage'):
         data = {'message': {'body': message, 'type': type}}
-        return self.post('/speak', data=data)['message']
+        return self.request.post(self._path + '/speak', data=data)['message']
 
     def paste(self, message):
         return self.speak(message, 'PasteMessage')
@@ -187,7 +178,8 @@ if __name__ == '__main__':
 
     token = os.environ['CAMPFIRE_TOKEN']
     url = os.environ['CAMPFIRE_URL']
-    campfire = Campfire(url, token)
+    request = Request(url, token)
+    campfire = Campfire(request)
     data = handle_cmd(campfire, sys.argv)
     if data:
         # HACK re-encode json for pretty output

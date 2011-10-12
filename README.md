@@ -12,14 +12,14 @@ Usage
     $ export CAMPFIRE_URL=https://your-subdomain.campfirenow.com
     $ export CAMPFIRE_TOKEN=your_auth_token
 
-    $ camplight.py rooms
-    $ camplight.py presence
-    $ camplight.py user me
+    $ camplight rooms
+    $ camplight presence
+    $ camplight user me
 
-    $ CAMPFIRE_ROOM=12345 camplight.py recent
+    $ CAMPFIRE_ROOM=12345 camplight recent
 
-    $ CAMPFIRE_ROOM="Develop" camplight.py join
-    $ CAMPFIRE_ROOM="Develop" camplight.py speak "You should check out Camplight"
+    $ CAMPFIRE_ROOM="Develop" camplight join
+    $ CAMPFIRE_ROOM="Develop" camplight speak "You should check out Camplight"
 
 
 License

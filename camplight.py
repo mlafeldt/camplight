@@ -9,6 +9,9 @@ The API is described at http://developer.37signals.com/campfire/index
 """
 
 __author__ = 'Mathias Lafeldt <mathias.lafeldt@gmail.com>'
+__license__ = 'MIT'
+__version__ = '0.2-dev'
+
 __all__ = ['Request', 'Campfire', 'Room', 'Sound']
 
 import requests

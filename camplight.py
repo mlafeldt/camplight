@@ -9,7 +9,7 @@ The API is described at http://developer.37signals.com/campfire/index
 """
 
 __author__ = 'Mathias Lafeldt <mathias.lafeldt@gmail.com>'
-__all__ = ['Campfire', 'Room', 'Sound']
+__all__ = ['Request', 'Campfire', 'Room', 'Sound']
 
 import requests
 import simplejson as json

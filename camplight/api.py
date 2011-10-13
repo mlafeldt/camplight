@@ -14,6 +14,8 @@ import simplejson as json
 
 class Request(object):
 
+    _JSON_MEDIA_TYPE = 'application/json'
+
     def __init__(self, url, token):
         self.url = url
         self._auth = (token, '')
@@ -22,14 +24,17 @@ class Request(object):
         headers = None
         if data is not None:
             data = json.dumps(data)
-            headers = {'Content-Type': 'application/json'}
+            headers = {'Content-Type': self._JSON_MEDIA_TYPE}
 
         url = self.url + path + '.json'
         r = requests.request(method, url, data=data, headers=headers,
                              auth=self._auth)
         r.raise_for_status()
-        # XXX content check too sloppy?
-        return json.loads(r.content) if len(r.content) > 1 else None
+
+        if not self._JSON_MEDIA_TYPE in r.headers['Content-Type']:
+            raise TypeError('No JSON in response')
+
+        return json.loads(r.content) if r.content.strip() else None
 
     def get(self, *args, **kwargs):
         return self._request('GET', *args, **kwargs)

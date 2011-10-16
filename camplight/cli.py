@@ -6,6 +6,7 @@ Command-line interface for camplight
 
 import sys
 import os
+
 from .api import *
 
 

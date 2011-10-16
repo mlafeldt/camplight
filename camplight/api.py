@@ -6,10 +6,10 @@ Campfire API implementation
 The API is described at http://developer.37signals.com/campfire/index
 """
 
-__all__ = ['Request', 'Campfire', 'Room', 'Sound']
-
 import requests
 import simplejson as json
+
+__all__ = ['Request', 'Campfire', 'Room', 'Sound']
 
 
 class Request(object):

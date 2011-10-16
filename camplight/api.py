@@ -114,15 +114,17 @@ class Room(object):
     def unlock(self):
         self.request.post(self._path + '/unlock')
 
-    def speak(self, message, type='TextMessage'):
-        data = {'message': {'body': message, 'type': type}}
+    def speak(self, message, msg_type=None):
+        if msg_type is None:
+            msg_type = 'TextMessage'
+        data = {'message': {'body': message, 'type': msg_type}}
         return self.request.post(self._path + '/speak', data=data)['message']
 
     def paste(self, message):
-        return self.speak(message, 'PasteMessage')
+        return self.speak(message, msg_type='PasteMessage')
 
     def play(self, sound):
-        return self.speak(sound, 'SoundMessage')
+        return self.speak(sound, msg_type='SoundMessage')
 
 
 class Sound(object):

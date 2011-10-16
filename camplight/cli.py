@@ -29,9 +29,9 @@ def handle_cmd(campfire, args):
         if cmd == 'show':
             return room.show()
         elif cmd == 'name':
-            return room.set_name(args[2])
+            return room.update(name=args[2])
         elif cmd == 'topic':
-            return room.set_topic(args[2])
+            return room.update(topic=args[2])
         elif cmd == 'recent':
             return room.recent()
         elif cmd == 'transcript':

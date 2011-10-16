@@ -87,11 +87,13 @@ class Room(object):
     def show(self):
         return self.request.get(self._path)['room']
 
-    def set_name(self, name):
-        self.request.put(self._path, data={'room': {'name': name}})
-
-    def set_topic(self, topic):
-        self.request.put(self._path, data={'room': {'topic': topic}})
+    def update(self, name=None, topic=None):
+        params = {}
+        if name is not None:
+            params['name'] = name
+        if topic is not None:
+            params['topic'] = topic
+        self.request.put(self._path, data={'room': params})
 
     def recent(self):
         return self.request.get(self._path + '/recent')['messages']

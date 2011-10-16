@@ -57,12 +57,14 @@ class Campfire(object):
     def rooms(self):
         return self.request.get('/rooms')['rooms']
 
+    def _room_by_name(self, name):
+        return [r for r in self.rooms() if r['name'] == name][0]
+
     def room(self, room_id):
         try:
             int(room_id)
         except (TypeError, ValueError, OverflowError):
-            room_id = [r['id'] for r in self.rooms()
-                       if r['name'] == room_id][0]
+            room_id = self._room_by_name(room_id)['id']
         return Room(self.request, room_id)
 
     def user(self, user_id=None):

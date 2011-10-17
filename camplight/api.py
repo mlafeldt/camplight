@@ -9,7 +9,7 @@ The API is described at http://developer.37signals.com/campfire/index
 import requests
 import simplejson as json
 
-__all__ = ['Request', 'Campfire', 'Room', 'Sound']
+__all__ = ['Request', 'Campfire', 'Room', 'MessageType', 'Sound']
 
 
 class Request(object):
@@ -118,17 +118,19 @@ class Room(object):
     def unlock(self):
         self.request.post(self._path + '/unlock')
 
-    def speak(self, message, msg_type=None):
-        if msg_type is None:
-            msg_type = 'TextMessage'
-        data = {'message': {'body': message, 'type': msg_type}}
+    def speak(self, message, type_=None):
+        params = {'body': message}
+        if type_ is not None:
+            params['type'] = type_
+        data = {'message': params}
         return self.request.post(self._path + '/speak', data=data)['message']
 
-    def paste(self, message):
-        return self.speak(message, msg_type='PasteMessage')
 
-    def play(self, sound):
-        return self.speak(sound, msg_type='SoundMessage')
+class MessageType(object):
+    TEXT = 'TextMessage'
+    PASTE = 'PasteMessage'
+    SOUND = 'SoundMessage'
+    TWEET = 'TweetMessage'
 
 
 class Sound(object):

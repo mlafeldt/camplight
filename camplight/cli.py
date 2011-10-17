@@ -49,9 +49,9 @@ def handle_cmd(campfire, args):
         elif cmd == 'speak':
             return room.speak(args[2])
         elif cmd == 'paste':
-            return room.paste(args[2])
+            return room.speak(args[2], MessageType.PASTE)
         elif cmd == 'play':
-            return room.play(args[2])
+            return room.speak(args[2], MessageType.SOUND)
         else:
             raise Exception('invalid command')
 

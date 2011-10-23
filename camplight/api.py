@@ -134,12 +134,12 @@ class MessageType(object):
 
 
 class Sound(object):
-    crickets = 'crickets'
-    drama = 'drama'
-    greatjob = 'greatjob'
-    live = 'live'
-    rimshot = 'rimshot'
-    tmyk = 'tmyk'
-    trombone = 'trombone'
-    vuvuzela = 'vuvuzela'
-    yeah = 'yeah'
+    CRICKETS = 'crickets'
+    DRAMA = 'drama'
+    GREATJOB = 'greatjob'
+    LIVE = 'live'
+    RIMSHOT = 'rimshot'
+    TMYK = 'tmyk'
+    TROMBONE = 'trombone'
+    VUVUZELA = 'vuvuzela'
+    YEAH = 'yeah'

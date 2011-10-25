@@ -2,8 +2,8 @@ Release History
 ===============
 
 
-v0.2 (draft)
-------------
+v0.2 (Oct 25 2011)
+------------------
 
 * Use [requests](https://github.com/kennethreitz/requests) as HTTP library.
 * Move all HTTP/JSON handling to separate class.

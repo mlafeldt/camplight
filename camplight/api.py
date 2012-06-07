@@ -7,14 +7,12 @@ The API is described at http://developer.37signals.com/campfire/index
 """
 
 import requests
-import simplejson as json
+import json
 
 __all__ = ['Request', 'Campfire', 'Room', 'MessageType', 'Sound']
 
 
 class Request(object):
-
-    _JSON_MEDIA_TYPE = 'application/json'
 
     def __init__(self, url, token):
         self.url = url
@@ -24,17 +22,13 @@ class Request(object):
         headers = None
         if data is not None:
             data = json.dumps(data)
-            headers = {'Content-Type': self._JSON_MEDIA_TYPE}
+            headers = {'Content-Type': 'application/json'}
 
         url = self.url + path + '.json'
         r = requests.request(method, url, data=data, headers=headers,
                              auth=self._auth)
         r.raise_for_status()
-
-        if not self._JSON_MEDIA_TYPE in r.headers['Content-Type']:
-            raise TypeError('No JSON in response')
-
-        return json.loads(r.content) if r.content.strip() else None
+        return r.json
 
     def get(self, *args, **kwargs):
         return self._request('GET', *args, **kwargs)

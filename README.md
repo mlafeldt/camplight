@@ -3,7 +3,7 @@ Camplight
 
 Camplight is a simple command-line client for Campfire written in Python.
 
-The Campfire API is documented here: http://developer.37signals.com/campfire/index
+The Campfire API is documented here: https://github.com/37signals/campfire-api
 
 
 Usage
@@ -25,11 +25,15 @@ Usage
 License
 -------
 
-See LICENSE file.
+Camplight is licensed under the terms of the MIT License. See [LICENSE] file.
 
 
 Contact
 -------
 
-* Web: <https://github.com/mlafeldt/Camplight>
+* Web: <https://github.com/mlafeldt/camplight>
 * Mail: <mathias.lafeldt@gmail.com>
+* Twitter: [@mlafeldt](https://twitter.com/mlafeldt)
+
+
+[LICENSE]: https://github.com/mlafeldt/camplight/blob/master/LICENSE

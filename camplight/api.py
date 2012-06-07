@@ -128,11 +128,19 @@ class MessageType(object):
 
 
 class Sound(object):
+    # hard to keep this list up-to-date
+    BUELLER = 'bueller'
     CRICKETS = 'crickets'
     DRAMA = 'drama'
     GREATJOB = 'greatjob'
     LIVE = 'live'
+    NYAN = 'nyan'
+    OHMY = 'ohmy'
+    OHYEAH = 'ohyeah'
+    PUSHIT = 'pushit'
     RIMSHOT = 'rimshot'
+    SECRET = 'secret'
+    TADA = 'tada'
     TMYK = 'tmyk'
     TROMBONE = 'trombone'
     VUVUZELA = 'vuvuzela'

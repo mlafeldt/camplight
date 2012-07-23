@@ -16,20 +16,30 @@ __all__ = ['Request', 'Campfire', 'Room', 'MessageType', 'Sound']
 
 class Request(object):
 
-    def __init__(self, url, token):
+    def __init__(self, url, token, verbose=None):
         self.url = url
         self._auth = (token, '')
+        self.verbose = verbose
 
     def _request(self, method, path, data=None):
+        url = self.url + path + '.json'
+
         headers = None
         if data is not None:
             data = json.dumps(data)
             headers = {'Content-Type': 'application/json'}
 
-        url = self.url + path + '.json'
+        config = {}
+        if self.verbose is not None:
+            config['verbose'] = self.verbose
+
         r = requests.request(method, url, data=data, headers=headers,
-                             auth=self._auth)
+                             auth=self._auth, config=config)
         r.raise_for_status()
+
+        if self.verbose is not None:
+            self.verbose.write(r.text + '\n')
+
         return r.json
 
     def get(self, *args, **kwargs):

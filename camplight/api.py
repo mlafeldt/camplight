@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-Campfire API implementation
+camplight.api
+~~~~~~~~~~~~~
 
-The API is described at http://developer.37signals.com/campfire/index
+This module implements the Campfire API.
+
 """
 
 import requests

@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-Command-line interface for camplight
+camplight.cli
+~~~~~~~~~~~~~
+
+This module implements the command-line interface to the Campfire API.
+
 """
 
 import sys

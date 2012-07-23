@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+camplight_r
+~~~~~~~~~~~
+
+Runner script to invoke camplight command-line tool without installing it first.
+
+"""
+
 import camplight.cli
 
 if __name__ == '__main__':

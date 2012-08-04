@@ -56,7 +56,10 @@ def main(argv=None):
                  'paste', 'play', 'set-name', 'set-topic'):
         if opts.room is None:
             die('Campfire room missing')
-        room = campfire.room(opts.room)
+        try:
+            room = campfire.room(opts.room)
+        except (RequestException, CamplightException) as e:
+            die('%s: %s' % (e.__class__.__name__, e))
         func = getattr(room, cmd.replace('-', '_'))
     else:
         die('invalid command')

@@ -66,7 +66,10 @@ class Campfire(object):
         return self.request.get('/rooms')['rooms']
 
     def _room_by_name(self, name):
-        return [r for r in self.rooms() if r['name'] == name][0]
+        try:
+            return [r for r in self.rooms() if r['name'] == name][0]
+        except IndexError:
+            raise RoomNotFoundError('Cannot find room "%s"' % name)
 
     def room(self, room_id):
         try:

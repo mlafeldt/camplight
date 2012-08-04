@@ -13,3 +13,7 @@ from requests.exceptions import *
 
 class CamplightException(RuntimeError):
     """Base class for Camplight exceptions."""
+
+
+class RoomNotFoundError(CamplightException):
+    """Campfire room does not exist."""

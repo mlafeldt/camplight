@@ -42,20 +42,21 @@ def main(argv=None):
         die('API token missing')
     if len(args) < 1:
         die('too few arguments')
-    cmd = args.pop(0).replace('-', '_')
 
     verbose = sys.stderr if opts.verbose else None
     request = Request(opts.url, opts.token, verbose)
     campfire = Campfire(request)
 
+    cmd = args.pop(0)
     if cmd in ('account', 'rooms', 'user', 'presence', 'search'):
         func = getattr(campfire, cmd)
-    elif cmd in ('status', 'recent', 'transcript', 'uploads', 'join', 'leave',
-                 'lock', 'unlock', 'speak', 'paste', 'play'):
+    elif cmd in ('status', 'recent', 'transcript', 'uploads',
+                 'join', 'leave', 'lock', 'unlock', 'speak',
+                 'paste', 'play', 'set-name', 'set-topic'):
         if opts.room is None:
             die('Campfire room missing')
         room = campfire.room(opts.room)
-        func = getattr(room, cmd)
+        func = getattr(room, cmd.replace('-', '_'))
     else:
         die('invalid command')
 

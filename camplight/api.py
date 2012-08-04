@@ -95,14 +95,6 @@ class Room(object):
     def status(self):
         return self.request.get(self._path)['room']
 
-    def update(self, name=None, topic=None):
-        params = {}
-        if name is not None:
-            params['name'] = name
-        if topic is not None:
-            params['topic'] = topic
-        self.request.put(self._path, data={'room': params})
-
     def recent(self):
         return self.request.get(self._path + '/recent')['messages']
 
@@ -136,6 +128,20 @@ class Room(object):
 
     def play(self, sound):
         return self.speak(sound, MessageType.SOUND)
+
+    def update(self, name=None, topic=None):
+        params = {}
+        if name is not None:
+            params['name'] = name
+        if topic is not None:
+            params['topic'] = topic
+        self.request.put(self._path, data={'room': params})
+
+    def set_name(self, name):
+        return self.update(name=name)
+
+    def set_topic(self, topic):
+        return self.update(topic=topic)
 
 
 class MessageType(object):

@@ -68,5 +68,5 @@ def main():
     data = handle_cmd(campfire, sys.argv)
     if data:
         # HACK re-encode json for pretty output
-        import simplejson as json
+        import json
         print json.dumps(data, indent=4)

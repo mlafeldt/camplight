@@ -131,6 +131,12 @@ class Room(object):
         data = {'message': params}
         return self.request.post(self._path + '/speak', data=data)['message']
 
+    def paste(self, message):
+        return self.speak(message, MessageType.PASTE)
+
+    def play(self, sound):
+        return self.speak(sound, MessageType.SOUND)
+
 
 class MessageType(object):
     TEXT = 'TextMessage'

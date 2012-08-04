@@ -92,7 +92,7 @@ class Room(object):
         self.room_id = room_id
         self._path = '/room/%s' % self.room_id
 
-    def show(self):
+    def status(self):
         return self.request.get(self._path)['room']
 
     def update(self, name=None, topic=None):

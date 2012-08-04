@@ -50,7 +50,7 @@ def main(argv=None):
 
     if cmd in ('account', 'rooms', 'user', 'presence', 'search'):
         func = getattr(campfire, cmd)
-    elif cmd in ('show', 'recent', 'transcript', 'uploads', 'join', 'leave',
+    elif cmd in ('status', 'recent', 'transcript', 'uploads', 'join', 'leave',
                  'lock', 'unlock', 'speak', 'paste', 'play'):
         if opts.room is None:
             die('Campfire room missing')

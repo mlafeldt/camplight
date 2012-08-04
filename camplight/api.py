@@ -141,14 +141,16 @@ class MessageType(object):
 
 class Sound(object):
     # hard to keep this list up-to-date
+    FIFTYSIXK = '56k'
     BUELLER = 'bueller'
     CRICKETS = 'crickets'
     DANGERZONE = 'dangerzone'
+    DEEPER = 'deeper'
     DRAMA = 'drama'
-    FIFTYSIXK = '56k'
     GREATJOB = 'greatjob'
     HORN = 'horn'
     HORROR = 'horror'
+    INCONCEIVABLE = 'inconceivable'
     LIVE = 'live'
     LOGGINS = 'loggins'
     NOOOO = 'noooo'

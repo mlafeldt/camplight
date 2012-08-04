@@ -13,3 +13,4 @@ __license__ = 'MIT'
 __version__ = '0.2'
 
 from .api import *
+from .exceptions import *

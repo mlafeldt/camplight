@@ -13,6 +13,7 @@ import os
 import optparse
 
 from .api import *
+from .exceptions import *
 
 
 def die(msg):
@@ -64,6 +65,8 @@ def main(argv=None):
         data = func(*args)
     except TypeError:
         die('invalid arguments')
+    except (RequestException, CamplightException) as e:
+        die('%s: %s' % (e.__class__.__name__, e))
 
     if data:
         # HACK re-encode json for pretty output

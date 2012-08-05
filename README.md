@@ -74,6 +74,12 @@ Client Usage
       set-name <name>       change the room's name
       set-topic <topic>     change the room's topic
 
+    Environment variables:
+      CAMPFIRE_URL          same as --url
+      CAMPFIRE_TOKEN        same as --token
+      CAMPFIRE_ROOM         same as --room
+      CAMPFIRE_VERBOSE      same as --verbose
+
 
 License
 -------

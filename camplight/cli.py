@@ -21,7 +21,8 @@ def die(msg):
 
 
 def main(argv=None):
-    parser = optparse.OptionParser()
+    usage = 'Usage: %prog [options] <command> [args]'
+    parser = optparse.OptionParser(usage=usage)
     parser.add_option('-u', '--url',
                       help='set Campfire URL',
                       default=os.environ.get('CAMPFIRE_URL'))

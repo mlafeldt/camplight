@@ -64,7 +64,7 @@ Camplight is licensed under the terms of the MIT License. See [LICENSE] file.
 Contact
 -------
 
-* Web: <https://github.com/mlafeldt/camplight>
+* Web: <http://mlafeldt.github.com/camplight>
 * Mail: <mathias.lafeldt@gmail.com>
 * Twitter: [@mlafeldt](https://twitter.com/mlafeldt)
 

@@ -6,6 +6,19 @@ Camplight is a simple command-line client for Campfire written in Python.
 The Campfire API is documented here: https://github.com/37signals/campfire-api
 
 
+Installation
+------------
+
+Camplight requires [Requests] - the excellent HTTP library by Kenneth Reitz.
+[This page][Requests-install] explains how to install it.
+
+Camplight itself can be installed via `setup.py`:
+
+    $ git clone git://github.com/mlafeldt/camplight.git
+    $ cd camplight/
+    $ python setup.py install
+
+
 Usage
 -----
 
@@ -57,3 +70,5 @@ Contact
 
 
 [LICENSE]: https://github.com/mlafeldt/camplight/blob/master/LICENSE
+[Requests]: http://python-requests.org
+[Requests-install]: http://docs.python-requests.org/en/latest/user/install/

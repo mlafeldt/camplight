@@ -9,17 +9,37 @@ The Campfire API is documented here: https://github.com/37signals/campfire-api
 Usage
 -----
 
-    $ export CAMPFIRE_URL=https://your-subdomain.campfirenow.com
-    $ export CAMPFIRE_TOKEN=your_auth_token
+    Usage: camplight [options] <command> [args]
 
-    $ camplight rooms
-    $ camplight presence
-    $ camplight user me
+    Options:
+      -h, --help            show this help message and exit
+      -u URL, --url=URL     set Campfire URL
+      -t TOKEN, --token=TOKEN
+                            set API token for authentication
+      -r ROOM, --room=ROOM  set Campfire room
+      -v, --verbose         be more verbose
 
-    $ CAMPFIRE_ROOM=12345 camplight recent
+    Global commands:
+      account               get account information
+      rooms                 list available rooms
+      user [id]             get user information
+      presence              list rooms the user is present in
+      search <term>         search transcripts for term
 
-    $ CAMPFIRE_ROOM="Develop" camplight join
-    $ CAMPFIRE_ROOM="Develop" camplight speak "You should check out Camplight"
+    Room commands (require --room to be set):
+      status                get general room information
+      recent                list recent messages in the room
+      transcript            list all messages sent today to the room
+      uploads               list recently uploaded files in the room
+      join                  join the room
+      leave                 leave the room
+      lock                  lock the room
+      unlock                unlock the room
+      speak <message>       send a regular chat message
+      paste <message>       paste a message
+      play <sound>          play a sound
+      set-name <name>       change the room's name
+      set-topic <topic>     change the room's topic
 
 
 License

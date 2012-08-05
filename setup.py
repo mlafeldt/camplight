@@ -9,7 +9,7 @@ setup(name='camplight',
       author_email='mathias.lafeldt@gmail.com',
       url='https://github.com/mlafeldt/camplight',
       license='MIT',
-      description='Simple Python command-line client for Campfire',
+      description='Python implementation of the Campfire API',
       long_description=open('README.md').read() + '\n\n' +
                        open('HISTORY.md').read(),
       classifiers=['Development Status :: 4 - Beta',

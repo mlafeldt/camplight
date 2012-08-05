@@ -1,9 +1,10 @@
 Camplight
 =========
 
-Camplight is a simple command-line client for Campfire written in Python.
+Camplight is a Python implementation of the [Campfire API].
 
-The Campfire API is documented here: https://github.com/37signals/campfire-api
+The project comes with a Python module that can be imported via `import camplight`
+and a simple command-line tool named `camplight` to utilize it.
 
 
 Installation
@@ -19,8 +20,27 @@ Camplight itself can be installed via `setup.py`:
     $ python setup.py install
 
 
-Usage
------
+API Usage
+---------
+
+```python
+from camplight import Request, Campfire
+
+request = Request('https://your-subdomain.campfirenow.com', 'your_token')
+campfire = Campfire(request)
+
+account = campfire.account()
+rooms = campfire.rooms()
+
+room = campfire.room('Danger')
+room.join()
+room.speak('ohai')
+room.leave()
+```
+
+
+Client Usage
+------------
 
     Usage: camplight [options] <command> [args]
 
@@ -69,6 +89,7 @@ Contact
 * Twitter: [@mlafeldt](https://twitter.com/mlafeldt)
 
 
+[Campfire API]: https://github.com/37signals/campfire-api
 [LICENSE]: https://github.com/mlafeldt/camplight/blob/master/LICENSE
-[Requests]: http://python-requests.org
 [Requests-install]: http://docs.python-requests.org/en/latest/user/install/
+[Requests]: http://python-requests.org

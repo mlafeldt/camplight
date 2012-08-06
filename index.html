@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Camplight by mlafeldt</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Camplight</h1>
+        <p class="header">Python implementation of the Campfire API</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/mlafeldt/camplight/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/mlafeldt/camplight/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/mlafeldt/camplight">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/mlafeldt">mlafeldt</a></p>
+
+
+      </header>
+      <section>
+        <h1>Camplight</h1>
+
+<p>Camplight is a Python implementation of the <a href="https://github.com/37signals/campfire-api">Campfire API</a>.</p>
+
+<p>The project comes with a Python module that can be imported via <code>import camplight</code>
+and a simple command-line tool named <code>camplight</code> to utilize it.</p>
+
+<h2>Installation</h2>
+
+<p>Camplight requires <a href="http://python-requests.org">Requests</a> - the excellent HTTP library by Kenneth Reitz.
+<a href="http://docs.python-requests.org/en/latest/user/install/">This page</a> explains how to install it.</p>
+
+<p>Camplight itself can be installed via <code>setup.py</code>:</p>
+
+<pre><code>$ git clone git://github.com/mlafeldt/camplight.git
+$ cd camplight/
+$ python setup.py install
+</code></pre>
+
+<h2>API Usage</h2>
+
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">camplight</span> <span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">Campfire</span>
+
+<span class="n">request</span> <span class="o">=</span> <span class="n">Request</span><span class="p">(</span><span class="s">'https://your-subdomain.campfirenow.com'</span><span class="p">,</span> <span class="s">'your_token'</span><span class="p">)</span>
+<span class="n">campfire</span> <span class="o">=</span> <span class="n">Campfire</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+<span class="n">account</span> <span class="o">=</span> <span class="n">campfire</span><span class="o">.</span><span class="n">account</span><span class="p">()</span>
+<span class="n">rooms</span> <span class="o">=</span> <span class="n">campfire</span><span class="o">.</span><span class="n">rooms</span><span class="p">()</span>
+
+<span class="n">room</span> <span class="o">=</span> <span class="n">campfire</span><span class="o">.</span><span class="n">room</span><span class="p">(</span><span class="s">'Danger'</span><span class="p">)</span>
+<span class="n">room</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+<span class="n">room</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s">'ohai'</span><span class="p">)</span>
+<span class="n">room</span><span class="o">.</span><span class="n">leave</span><span class="p">()</span>
+</pre></div>
+
+<h2>Client Usage</h2>
+
+<pre><code>Usage: camplight [options] &lt;command&gt; [args]
+
+Options:
+  -h, --help            show this help message and exit
+  -u URL, --url=URL     set Campfire URL
+  -t TOKEN, --token=TOKEN
+                        set API token for authentication
+  -r ROOM, --room=ROOM  set Campfire room
+  -v, --verbose         be more verbose
+
+Global commands:
+  account               get account information
+  rooms                 list available rooms
+  user [id]             get user information
+  presence              list rooms the user is present in
+  search &lt;term&gt;         search transcripts for term
+
+Room commands (require --room to be set):
+  status                get general room information
+  recent                list recent messages in the room
+  transcript            list all messages sent today to the room
+  uploads               list recently uploaded files in the room
+  join                  join the room
+  leave                 leave the room
+  lock                  lock the room
+  unlock                unlock the room
+  speak &lt;message&gt;       send a regular chat message
+  paste &lt;message&gt;       paste a message
+  play &lt;sound&gt;          play a sound
+  set-name &lt;name&gt;       change the room's name
+  set-topic &lt;topic&gt;     change the room's topic
+
+Environment variables:
+  CAMPFIRE_URL          same as --url
+  CAMPFIRE_TOKEN        same as --token
+  CAMPFIRE_ROOM         same as --room
+  CAMPFIRE_VERBOSE      same as --verbose
+</code></pre>
+
+<h2>License</h2>
+
+<p>Camplight is licensed under the terms of the MIT License. See <a href="https://github.com/mlafeldt/camplight/blob/master/LICENSE">LICENSE</a> file.</p>
+
+<h2>Contact</h2>
+
+<ul>
+<li>Web: <a href="http://mlafeldt.github.com/camplight">http://mlafeldt.github.com/camplight</a>
+</li>
+<li>Mail: <a href="mailto:mathias.lafeldt@gmail.com">mathias.lafeldt@gmail.com</a>
+</li>
+<li>Twitter: <a href="https://twitter.com/mlafeldt">@mlafeldt</a>
+</li>
+</ul>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+		
+  </body>
+</html>

@@ -1,33 +1,47 @@
 # -*- coding: utf-8 -*-
 
 """
-Campfire API implementation
+camplight.api
+~~~~~~~~~~~~~
 
-The API is described at http://developer.37signals.com/campfire/index
+This module implements the Campfire API.
+
 """
 
 import requests
 import json
+
+from .exceptions import *
 
 __all__ = ['Request', 'Campfire', 'Room', 'MessageType', 'Sound']
 
 
 class Request(object):
 
-    def __init__(self, url, token):
+    def __init__(self, url, token, verbose=None):
         self.url = url
         self._auth = (token, '')
+        self.verbose = verbose
 
     def _request(self, method, path, data=None):
+        url = self.url + path + '.json'
+
         headers = None
         if data is not None:
             data = json.dumps(data)
             headers = {'Content-Type': 'application/json'}
 
-        url = self.url + path + '.json'
+        config = {}
+        if self.verbose is not None:
+            config['verbose'] = self.verbose
+
         r = requests.request(method, url, data=data, headers=headers,
-                             auth=self._auth)
+                             auth=self._auth, config=config)
         r.raise_for_status()
+
+        if self.verbose is not None:
+            self.verbose.write(r.text + '\n')
+
         return r.json
 
     def get(self, *args, **kwargs):
@@ -52,7 +66,10 @@ class Campfire(object):
         return self.request.get('/rooms')['rooms']
 
     def _room_by_name(self, name):
-        return [r for r in self.rooms() if r['name'] == name][0]
+        try:
+            return [r for r in self.rooms() if r['name'] == name][0]
+        except IndexError:
+            raise RoomNotFoundError('Cannot find room "%s"' % name)
 
     def room(self, room_id):
         try:
@@ -80,16 +97,8 @@ class Room(object):
         self.room_id = room_id
         self._path = '/room/%s' % self.room_id
 
-    def show(self):
+    def status(self):
         return self.request.get(self._path)['room']
-
-    def update(self, name=None, topic=None):
-        params = {}
-        if name is not None:
-            params['name'] = name
-        if topic is not None:
-            params['topic'] = topic
-        self.request.put(self._path, data={'room': params})
 
     def recent(self):
         return self.request.get(self._path + '/recent')['messages']
@@ -119,6 +128,26 @@ class Room(object):
         data = {'message': params}
         return self.request.post(self._path + '/speak', data=data)['message']
 
+    def paste(self, message):
+        return self.speak(message, MessageType.PASTE)
+
+    def play(self, sound):
+        return self.speak(sound, MessageType.SOUND)
+
+    def update(self, name=None, topic=None):
+        params = {}
+        if name is not None:
+            params['name'] = name
+        if topic is not None:
+            params['topic'] = topic
+        self.request.put(self._path, data={'room': params})
+
+    def set_name(self, name):
+        return self.update(name=name)
+
+    def set_topic(self, topic):
+        return self.update(topic=topic)
+
 
 class MessageType(object):
     TEXT = 'TextMessage'
@@ -129,14 +158,16 @@ class MessageType(object):
 
 class Sound(object):
     # hard to keep this list up-to-date
+    FIFTYSIXK = '56k'
     BUELLER = 'bueller'
     CRICKETS = 'crickets'
     DANGERZONE = 'dangerzone'
+    DEEPER = 'deeper'
     DRAMA = 'drama'
-    FIFTYSIXK = '56k'
     GREATJOB = 'greatjob'
     HORN = 'horn'
     HORROR = 'horror'
+    INCONCEIVABLE = 'inconceivable'
     LIVE = 'live'
     LOGGINS = 'loggins'
     NOOOO = 'noooo'

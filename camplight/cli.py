@@ -1,68 +1,78 @@
 # -*- coding: utf-8 -*-
 
 """
-Command-line interface for camplight
+camplight.cli
+~~~~~~~~~~~~~
+
+This module implements the command-line interface to the Campfire API.
+
 """
 
 import sys
 import os
+import optparse
 
 from .api import *
+from .exceptions import *
 
 
-# TODO add proper option handling
-def handle_cmd(campfire, args):
-    cmd = args[1]
-    if cmd == 'account':
-        return campfire.account()
-    elif cmd == 'rooms':
-        return campfire.rooms()
-    elif cmd == 'user':
-        return campfire.user(args[2])
-    elif cmd == 'presence':
-        return campfire.presence()
-    elif cmd == 'search':
-        return campfire.search(args[2])
-    else:
-        room_id = os.environ['CAMPFIRE_ROOM']
-        room = campfire.room(room_id)
-        if cmd == 'show':
-            return room.show()
-        elif cmd == 'name':
-            return room.update(name=args[2])
-        elif cmd == 'topic':
-            return room.update(topic=args[2])
-        elif cmd == 'recent':
-            return room.recent()
-        elif cmd == 'transcript':
-            return room.transcript()
-        elif cmd == 'uploads':
-            return room.uploads()
-        elif cmd == 'join':
-            return room.join()
-        elif cmd == 'leave':
-            return room.leave()
-        elif cmd == 'lock':
-            return room.lock()
-        elif cmd == 'unlock':
-            return room.unlock()
-        elif cmd == 'speak':
-            return room.speak(args[2])
-        elif cmd == 'paste':
-            return room.speak(args[2], MessageType.PASTE)
-        elif cmd == 'play':
-            return room.speak(args[2], MessageType.SOUND)
-        else:
-            raise Exception('invalid command')
+def die(msg):
+    sys.exit('error: %s' % msg)
 
 
-def main():
-    token = os.environ['CAMPFIRE_TOKEN']
-    url = os.environ['CAMPFIRE_URL']
-    request = Request(url, token)
+def main(argv=None):
+    usage = 'Usage: %prog [options] <command> [args]'
+    parser = optparse.OptionParser(usage=usage)
+    parser.add_option('-u', '--url',
+                      help='set Campfire URL',
+                      default=os.environ.get('CAMPFIRE_URL'))
+    parser.add_option('-t', '--token',
+                      help='set API token for authentication',
+                      default=os.environ.get('CAMPFIRE_TOKEN'))
+    parser.add_option('-r', '--room',
+                      help='set Campfire room',
+                      default=os.environ.get('CAMPFIRE_ROOM'))
+    parser.add_option('-v', '--verbose',
+                      help='be more verbose',
+                      action='store_true',
+                      default=os.environ.get('CAMPFIRE_VERBOSE'))
+    opts, args = parser.parse_args(argv)
+
+    if not opts.url:
+        die('Campfire URL missing')
+    if not opts.token:
+        die('API token missing')
+    if len(args) < 1:
+        die('too few arguments')
+
+    verbose = sys.stderr if opts.verbose else None
+    request = Request(opts.url, opts.token, verbose)
     campfire = Campfire(request)
-    data = handle_cmd(campfire, sys.argv)
+
+    cmd = args.pop(0)
+    if cmd in ('account', 'rooms', 'user', 'presence', 'search'):
+        func = getattr(campfire, cmd)
+    elif cmd in ('status', 'recent', 'transcript', 'uploads',
+                 'join', 'leave', 'lock', 'unlock', 'speak',
+                 'paste', 'play', 'set-name', 'set-topic'):
+        if opts.room is None:
+            die('Campfire room missing')
+        try:
+            room = campfire.room(opts.room)
+        except (RequestException, CamplightException) as e:
+            die('%s: %s' % (e.__class__.__name__, e))
+        func = getattr(room, cmd.replace('-', '_'))
+    else:
+        die('invalid command')
+
+    try:
+        data = func(*args)
+    except TypeError:
+        die('invalid arguments')
+    except (RequestException, CamplightException) as e:
+        die('%s: %s' % (e.__class__.__name__, e))
+
     if data:
         # HACK re-encode json for pretty output
-        import simplejson as json
+        import json
         print json.dumps(data, indent=4)

@@ -1,5 +1,18 @@
-Release History
-===============
+History
+=======
+
+
+v0.3 (Aug 6 2012)
+-----------------
+
+* Rewrite command-line interface from scratch.
+* Add dedicated Camplight exceptions.
+* Make use of `Response.json` from Requests v0.12.1.
+* Add verbose mode.
+* More sounds.
+* Tweak per-file docstrings.
+* Add `setup.py`.
+* Add much more documentation.
 
 
 v0.2 (Oct 25 2011)

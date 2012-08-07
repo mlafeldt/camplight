@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+import random
 import mock
 import camplight
 
@@ -9,7 +10,7 @@ class RoomTest(unittest.TestCase):
 
     def setUp(self):
         self.request = mock.Mock()
-        self.room_id = 12345678
+        self.room_id = random.randint(1, 1000000)
         self.room = camplight.Room(self.request, self.room_id)
 
     def test_status(self):

@@ -2,6 +2,14 @@ History
 =======
 
 
+v0.4 (Aug 8 2012)
+-----------------
+
+* Add unit tests; run them via `python setup.py test`.
+* Add Travis CI config.
+* Python 3 compatibility.
+
+
 v0.3 (Aug 6 2012)
 -----------------
 

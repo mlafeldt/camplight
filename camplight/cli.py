@@ -75,4 +75,4 @@ def main(argv=None):
     if data:
         # HACK re-encode json for pretty output
         import json
-        print json.dumps(data, indent=4)
+        print(json.dumps(data, indent=4))

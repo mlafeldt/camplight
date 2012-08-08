@@ -26,4 +26,5 @@ setup(name='camplight',
       # -*- Entry points: -*-
       [console_scripts]
       camplight=camplight.cli:main
-      """)
+      """,
+      test_suite='test')

@@ -3,6 +3,9 @@
 from setuptools import setup, find_packages
 import camplight
 
+install_requires = ['requests>=0.12.1']
+tests_require = ['mock']
+
 setup(name='camplight',
       version=camplight.__version__,
       author='Mathias Lafeldt',
@@ -21,7 +24,9 @@ setup(name='camplight',
       packages=find_packages(),
       zip_safe=False,
       setup_requires=[],
-      install_requires=['requests>=0.12.1'],
+      install_requires=install_requires,
+      tests_require=tests_require,
+      extras_require={'test': tests_require},
       entry_points="""
       # -*- Entry points: -*-
       [console_scripts]

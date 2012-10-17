@@ -20,33 +20,6 @@ Camplight itself can be installed via `setup.py`:
     $ python setup.py install
 
 
-Testing
--------
-
-After cloning the repository run the test suite using:
-
-    $ python setup.py test
-
-You can generate a coverage report using [coverage.py]. First install
-the coverage package:
-
-    $ pip install coverage
-
-Now gather the data by running:
-
-    $ coverage run setup.py test
-
-And create a report:
-
-    $ coverage report
-
-You can also create a much nicer HTML report:
-
-    $ coverage html
-
-Now open ``htmlcov/index.html`` in your browser.
-
-
 API Usage
 ---------
 
@@ -106,6 +79,33 @@ Client Usage
       CAMPFIRE_TOKEN        same as --token
       CAMPFIRE_ROOM         same as --room
       CAMPFIRE_VERBOSE      same as --verbose
+
+
+Testing
+-------
+
+After cloning the repository, run the test suite using:
+
+    $ python setup.py test
+
+You can generate a coverage report using [coverage.py]. First, install the
+coverage package:
+
+    $ pip install coverage
+
+Now gather the data by running:
+
+    $ coverage run setup.py test
+
+And create a report:
+
+    $ coverage report
+
+You can also create a much nicer HTML report:
+
+    $ coverage html
+
+Now open `htmlcov/index.html` in your browser.
 
 
 License

@@ -20,6 +20,33 @@ Camplight itself can be installed via `setup.py`:
     $ python setup.py install
 
 
+Testing
+-------
+
+After cloning the repository run the test suite using:
+
+    $ python setup.py test
+
+You can generate a coverage report using [coverage.py]. First install
+the coverage package:
+
+    $ pip install coverage
+
+Now gather the data by running:
+
+    $ coverage run setup.py test
+
+And create a report:
+
+    $ coverage report
+
+You can also create a much nicer HTML report:
+
+    $ coverage html
+
+Now open ``htmlcov/index.html`` in your browser.
+
+
 API Usage
 ---------
 
@@ -99,3 +126,4 @@ Contact
 [LICENSE]: https://github.com/mlafeldt/camplight/blob/master/LICENSE
 [Requests-install]: http://docs.python-requests.org/en/latest/user/install/
 [Requests]: http://python-requests.org
+[coverage.py]: http://nedbatchelder.com/code/coverage/

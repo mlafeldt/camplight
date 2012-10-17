@@ -106,6 +106,36 @@ Environment variables:
   CAMPFIRE_VERBOSE      same as --verbose
 </code></pre>
 
+<h2>Testing</h2>
+
+<p>After cloning the repository, run the test suite using:</p>
+
+<pre><code>$ python setup.py test
+</code></pre>
+
+<p>You can generate a coverage report using <a href="http://nedbatchelder.com/code/coverage/">coverage.py</a>. First, install the
+coverage package:</p>
+
+<pre><code>$ pip install coverage
+</code></pre>
+
+<p>Now gather the data by running:</p>
+
+<pre><code>$ coverage run setup.py test
+</code></pre>
+
+<p>And create a report:</p>
+
+<pre><code>$ coverage report
+</code></pre>
+
+<p>You can also create a much nicer HTML report:</p>
+
+<pre><code>$ coverage html
+</code></pre>
+
+<p>Now open <code>htmlcov/index.html</code> in your browser.</p>
+
 <h2>License</h2>
 
 <p>Camplight is licensed under the terms of the MIT License. See <a href="https://github.com/mlafeldt/camplight/blob/master/LICENSE">LICENSE</a> file.</p>
@@ -125,7 +155,7 @@ Environment variables:
         <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
       </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
 		
   </body>
 </html>

@@ -2,6 +2,16 @@ History
 =======
 
 
+v0.5 (Oct 30 2012)
+------------------
+
+* Add test coverage using [coverage.py](http://nedbatchelder.com/code/coverage/).
+  (@keimlink)
+* Properly set `tests_require` and `extras_require` in setup.py. (@keimlink)
+* Work around dependency error returned by `pip install` by hardcoding the
+  current Camplight version in setup.py. (@jwilder)
+
+
 v0.4 (Aug 8 2012)
 -----------------
 

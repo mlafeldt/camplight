@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup, find_packages
-import camplight
 
 install_requires = ['requests>=0.12.1']
 tests_require = ['mock']
 
 setup(name='camplight',
-      version=camplight.__version__,
+      version='0.3',
       author='Mathias Lafeldt',
       author_email='mathias.lafeldt@gmail.com',
       url='https://github.com/mlafeldt/camplight',

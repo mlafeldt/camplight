@@ -1,9 +1,25 @@
 # -*- coding: utf-8 -*-
 
-from setuptools import setup, find_packages
+from setuptools import Command, find_packages, setup
 
 install_requires = ['requests>=0.12.1']
-tests_require = ['mock']
+tests_require = ['pytest', 'mock']
+
+
+class PyTest(Command):
+    description = 'Runs the test suite.'
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        import pytest
+        pytest.main('test')
+
 
 setup(name='camplight',
       version='0.5',
@@ -31,4 +47,4 @@ setup(name='camplight',
       [console_scripts]
       camplight=camplight.cli:main
       """,
-      test_suite='test')
+      cmdclass={'test': PyTest})

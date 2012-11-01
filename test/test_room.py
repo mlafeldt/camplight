@@ -1,102 +1,88 @@
 # -*- coding: utf-8 -*-
 
-import unittest
-import random
+import pytest
 import mock
 import camplight
 
 
-class RoomTest(unittest.TestCase):
+class TestRoom(object):
 
-    def setUp(self):
+    def setup_method(self, method):
         self.request = mock.Mock()
-        self.room_id = random.randint(1, 1000000)
+        self.room_id = 27121983
         self.room = camplight.Room(self.request, self.room_id)
 
     def test_status(self):
         expect = {'name': 'Danger', 'topic': 'No serious discussion'}
         self.request.get.return_value = {'room': expect}
-        result = self.room.status()
+        assert self.room.status() == expect
         self.request.get.assert_called_once_with('/room/%s' % self.room_id)
-        self.assertEqual(result, expect)
 
     def test_recent(self):
         expect = [{'body': 'Hello World', 'type': camplight.MessageType.TEXT}]
         self.request.get.return_value = {'messages': expect}
-        result = self.room.recent()
+        assert self.room.recent() == expect
         self.request.get.assert_called_once_with('/room/%s/recent' % self.room_id)
-        self.assertEqual(result, expect)
 
     def test_transcript(self):
         expect = [{'body': 'Hello World', 'type': camplight.MessageType.TEXT}]
         self.request.get.return_value = {'messages': expect}
-        result = self.room.transcript()
+        assert self.room.transcript() == expect
         self.request.get.assert_called_once_with('/room/%s/transcript' % self.room_id)
-        self.assertEqual(result, expect)
 
     def test_uploads(self):
         expect = [{'name': 'file.png', 'content_type': 'image/png'}]
         self.request.get.return_value = {'uploads': expect}
-        result = self.room.uploads()
+        assert self.room.uploads() == expect
         self.request.get.assert_called_once_with('/room/%s/uploads' % self.room_id)
-        self.assertEqual(result, expect)
 
     def test_join(self):
-        result = self.room.join()
+        assert self.room.join() == None
         self.request.post.assert_called_once_with('/room/%s/join' % self.room_id)
-        self.assertEqual(result, None)
 
     def test_leave(self):
-        result = self.room.leave()
+        assert self.room.leave() == None
         self.request.post.assert_called_once_with('/room/%s/leave' % self.room_id)
-        self.assertEqual(result, None)
 
     def test_lock(self):
-        result = self.room.lock()
+        assert self.room.lock() == None
         self.request.post.assert_called_once_with('/room/%s/lock' % self.room_id)
-        self.assertEqual(result, None)
 
     def test_unlock(self):
-        result = self.room.unlock()
+        assert self.room.unlock() == None
         self.request.post.assert_called_once_with('/room/%s/unlock' % self.room_id)
-        self.assertEqual(result, None)
 
     def test_speak(self):
         expect = {'body': 'Hello World'}
         self.request.post.return_value = {'message': expect}
-        result = self.room.speak('Hello World')
+        assert self.room.speak('Hello World') == expect
         self.request.post.assert_called_once_with('/room/%s/speak' % self.room_id,
                                                   data={'message': expect})
-        self.assertEqual(result, expect)
 
     def test_paste(self):
         expect = {'body': 'Hello World', 'type': camplight.MessageType.PASTE}
         self.request.post.return_value = {'message': expect}
-        result = self.room.paste('Hello World')
+        assert self.room.paste('Hello World') == expect
         self.request.post.assert_called_once_with('/room/%s/speak' % self.room_id,
                                                   data={'message': expect})
-        self.assertEqual(result, expect)
 
     def test_play(self):
         expect = {'body': camplight.Sound.YEAH, 'type': camplight.MessageType.SOUND}
         self.request.post.return_value = {'message': expect}
-        result = self.room.play(camplight.Sound.YEAH)
+        assert self.room.play(camplight.Sound.YEAH) == expect
         self.request.post.assert_called_once_with('/room/%s/speak' % self.room_id,
                                                   data={'message': expect})
-        self.assertEqual(result, expect)
 
     def test_set_name(self):
-        result = self.room.set_name('Danger')
+        assert self.room.set_name('Danger') == None
         self.request.put.assert_called_once_with('/room/%s' % self.room_id,
                                                  data={'room': {'name': 'Danger'}})
-        self.assertEqual(result, None)
 
     def test_set_topic(self):
-        result = self.room.set_topic('No serious discussion')
+        assert self.room.set_topic('No serious discussion') == None
         self.request.put.assert_called_once_with('/room/%s' % self.room_id,
                                                  data={'room': {'topic': 'No serious discussion'}})
-        self.assertEqual(result, None)
 
 
 if __name__ == '__main__':
-    unittest.main()
+    pytest.main(__file__)

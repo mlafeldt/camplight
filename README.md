@@ -10,8 +10,8 @@ and a simple command-line tool named `camplight` to utilize it.
 Installation
 ------------
 
-Camplight requires [Requests] - the excellent HTTP library by Kenneth Reitz.
-[This page][Requests-install] explains how to install it.
+Camplight requires [Requests]. [This page][Requests-install] explains how to
+install it.
 
 Camplight itself can be installed via `setup.py`:
 

@@ -19,6 +19,10 @@ Camplight itself can be installed via `setup.py`:
     $ cd camplight/
     $ python setup.py install
 
+Alternatively, you can use pip:
+
+    $ pip install git+git://github.com/mlafeldt/camplight.git
+
 
 API Usage
 ---------

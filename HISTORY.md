@@ -2,6 +2,12 @@ History
 =======
 
 
+v0.6 (Nov 6 2012)
+-----------------
+
+* Use [pytest](http://pytest.org) for unit testing.
+
+
 v0.5 (Oct 30 2012)
 ------------------
 

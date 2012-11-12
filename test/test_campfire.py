@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import os
+import sys
+
+camplight_root = os.path.join(os.path.abspath(os.path.dirname(__file__)), '..')
+sys.path.insert(0, camplight_root)
+
 import pytest
 import mock
 import camplight

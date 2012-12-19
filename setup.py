@@ -2,7 +2,7 @@
 
 from setuptools import Command, find_packages, setup
 
-install_requires = ['requests>=0.12.1']
+install_requires = ['requests>=1.0.3']
 tests_require = ['pytest', 'mock']
 
 

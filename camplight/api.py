@@ -31,18 +31,14 @@ class Request(object):
             data = json.dumps(data)
             headers = {'Content-Type': 'application/json'}
 
-        config = {}
-        if self.verbose is not None:
-            config['verbose'] = self.verbose
-
         r = requests.request(method, url, data=data, headers=headers,
-                             auth=self._auth, config=config)
+                             auth=self._auth)
         r.raise_for_status()
 
         if self.verbose is not None:
             self.verbose.write(r.text + '\n')
 
-        return r.json
+        return r.json()
 
     def get(self, *args, **kwargs):
         return self._request('GET', *args, **kwargs)

@@ -2,6 +2,13 @@ History
 =======
 
 
+v0.7 (Dec 19 2012)
+------------------
+
+* Fix path to Camplight module in unit tests.
+* Update to Requests version 1.0.3.
+
+
 v0.6 (Nov 6 2012)
 -----------------
 

@@ -2,6 +2,13 @@ History
 =======
 
 
+v0.8 (Feb 8 2013)
+-----------------
+
+* Fix JSON decoding in case no text is returned. Reported by @astiam.
+* Travis: run tests against Python 3.3.
+
+
 v0.7 (Dec 19 2012)
 ------------------
 

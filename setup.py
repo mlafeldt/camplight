@@ -22,7 +22,7 @@ class PyTest(Command):
 
 
 setup(name='camplight',
-      version='0.7',
+      version='0.8',
       author='Mathias Lafeldt',
       author_email='mathias.lafeldt@gmail.com',
       url='https://github.com/mlafeldt/camplight',

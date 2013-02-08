@@ -38,7 +38,7 @@ class Request(object):
         if self.verbose is not None:
             self.verbose.write(r.text + '\n')
 
-        return r.json()
+        return r.json() if r.text.strip() else None
 
     def get(self, *args, **kwargs):
         return self._request('GET', *args, **kwargs)

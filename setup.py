@@ -24,7 +24,7 @@ class PyTest(Command):
 
 
 setup(name='camplight',
-      version='0.8',
+      version='0.9',
       author='Mathias Lafeldt',
       author_email='mathias.lafeldt@gmail.com',
       url='https://github.com/mlafeldt/camplight',

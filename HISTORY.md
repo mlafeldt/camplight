@@ -2,6 +2,13 @@ History
 =======
 
 
+v0.9 (Feb 15 2013)
+------------------
+
+* Fix exit status of `python setup.py test`.
+* Update copyright year in LICENSE file.
+
+
 v0.8 (Feb 8 2013)
 -----------------
 

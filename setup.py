@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import Command, find_packages, setup
+import sys
 
 install_requires = ['requests>=1.0.3']
 tests_require = ['pytest', 'mock']
@@ -18,7 +19,8 @@ class PyTest(Command):
 
     def run(self):
         import pytest
-        pytest.main('test')
+        errno = pytest.main('test')
+        sys.exit(errno)
 
 
 setup(name='camplight',

@@ -6,6 +6,7 @@ import sys
 camplight_root = os.path.join(os.path.abspath(os.path.dirname(__file__)), '..')
 sys.path.insert(0, camplight_root)
 
+
 import pytest
 from httpretty import HTTPretty
 from camplight import Request, Campfire, Room, MessageType, Sound
@@ -84,33 +85,39 @@ class TestRoom(object):
         assert self.room.unlock() == None
 
     def test_speak(self):
-        stub_post('/room/%s/speak.json' % self.room_id, body="""
-            {"message": {"body": "Hello World"}}""")
+        body = b'{"message": {"body": "Hello World"}}'
+        stub_post('/room/%s/speak.json' % self.room_id, body=body)
         message = self.room.speak('Hello World')
         assert message['body'] == 'Hello World'
-        assert 'type' not in message
+        assert hasattr(message, 'type') == False
+        assert HTTPretty.last_request.body == body
 
     def test_paste(self):
-        stub_post('/room/%s/speak.json' % self.room_id, body="""
-            {"message": {"body": "Hello World", "type": "PasteMessage"}}""")
+        body = b'{"message": {"body": "Hello World", "type": "PasteMessage"}}'
+        stub_post('/room/%s/speak.json' % self.room_id, body=body)
         message = self.room.paste('Hello World')
         assert message['body'] == 'Hello World'
         assert message['type'] == MessageType.PASTE
+        assert HTTPretty.last_request.body == body
 
     def test_play(self):
-        stub_post('/room/%s/speak.json' % self.room_id, body="""
-            {"message": {"body": "yeah", "type": "SoundMessage"}}""")
-        message = self.room.play('Hello World')
+        body = b'{"message": {"body": "yeah", "type": "SoundMessage"}}'
+        stub_post('/room/%s/speak.json' % self.room_id, body=body)
+        message = self.room.play(Sound.YEAH)
         assert message['body'] == Sound.YEAH
         assert message['type'] == MessageType.SOUND
+        assert HTTPretty.last_request.body == body
 
     def test_set_name(self):
         stub_put('/room/%s.json' % self.room_id, body='')
         assert self.room.set_name('Danger') == None
+        assert HTTPretty.last_request.body == b'{"room": {"name": "Danger"}}'
 
     def test_set_topic(self):
         stub_put('/room/%s.json' % self.room_id, body='')
         assert self.room.set_topic('No serious discussion') == None
+        assert HTTPretty.last_request.body == \
+            b'{"room": {"topic": "No serious discussion"}}'
 
 
 if __name__ == '__main__':

@@ -7,7 +7,7 @@ python:
 
 install: pip install requests pytest httpretty --use-mirrors
 
-script: python setup.py test
+script: PYTHONHASHSEED=0 python setup.py test
 
 branches:
   only:

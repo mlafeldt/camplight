@@ -5,9 +5,9 @@ python:
   - 2.7
   - 3.3
 
-install: pip install requests pytest mock --use-mirrors
+install: pip install requests pytest httpretty --use-mirrors
 
-script: python setup.py test
+script: PYTHONHASHSEED=0 python setup.py test
 
 branches:
   only:

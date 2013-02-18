@@ -2,6 +2,14 @@ History
 =======
 
 
+v0.9.1 (Feb 18 2013)
+--------------------
+
+* Use HTTPretty as mock library for unit tests.
+* Add Travis build status to README.
+* Update classifiers in setup.py.
+
+
 v0.9 (Feb 15 2013)
 ------------------
 

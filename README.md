@@ -88,6 +88,8 @@ Client Usage
 Testing
 -------
 
+[![Build Status](https://travis-ci.org/mlafeldt/camplight.png?branch=master)](https://travis-ci.org/mlafeldt/camplight)
+
 After cloning the repository, run the test suite using:
 
     $ python setup.py test

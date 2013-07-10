@@ -10,18 +10,17 @@ and a simple command-line tool named `camplight` to utilize it.
 Installation
 ------------
 
-Camplight requires [Requests]. [This page][Requests-install] explains how to
-install it.
+The easiest way to install Camplight and its dependencies:
 
-Camplight itself can be installed via `setup.py`:
+    $ pip install camplight
+
+Alternatively, you can install it from source:
 
     $ git clone git://github.com/mlafeldt/camplight.git
     $ cd camplight/
     $ python setup.py install
 
-Alternatively, you can use pip:
-
-    $ pip install git+git://github.com/mlafeldt/camplight.git
+(Note that Camplight requires [Requests].)
 
 
 API Usage
@@ -130,6 +129,5 @@ Contact
 
 [Campfire API]: https://github.com/37signals/campfire-api
 [LICENSE]: https://github.com/mlafeldt/camplight/blob/master/LICENSE
-[Requests-install]: http://docs.python-requests.org/en/latest/user/install/
 [Requests]: http://python-requests.org
 [coverage.py]: http://nedbatchelder.com/code/coverage/

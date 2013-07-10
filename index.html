@@ -30,31 +30,33 @@
 
       </header>
       <section>
-        <h1>Camplight</h1>
+        <h1>
+<a name="camplight" class="anchor" href="#camplight"><span class="octicon octicon-link"></span></a>Camplight</h1>
 
 <p>Camplight is a Python implementation of the <a href="https://github.com/37signals/campfire-api">Campfire API</a>.</p>
 
 <p>The project comes with a Python module that can be imported via <code>import camplight</code>
 and a simple command-line tool named <code>camplight</code> to utilize it.</p>
 
-<h2>Installation</h2>
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>Camplight requires <a href="http://python-requests.org">Requests</a>. <a href="http://docs.python-requests.org/en/latest/user/install/">This page</a> explains how to
-install it.</p>
+<p>The easiest way to install Camplight and its dependencies:</p>
 
-<p>Camplight itself can be installed via <code>setup.py</code>:</p>
+<pre><code>$ pip install camplight
+</code></pre>
+
+<p>Alternatively, you can install it from source:</p>
 
 <pre><code>$ git clone git://github.com/mlafeldt/camplight.git
 $ cd camplight/
 $ python setup.py install
 </code></pre>
 
-<p>Alternatively, you can use pip:</p>
+<p>(Note that Camplight requires <a href="http://python-requests.org">Requests</a>.)</p>
 
-<pre><code>$ pip install git+git://github.com/mlafeldt/camplight.git
-</code></pre>
-
-<h2>API Usage</h2>
+<h2>
+<a name="api-usage" class="anchor" href="#api-usage"><span class="octicon octicon-link"></span></a>API Usage</h2>
 
 <div class="highlight"><pre><span class="kn">from</span> <span class="nn">camplight</span> <span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">Campfire</span>
 
@@ -70,7 +72,8 @@ $ python setup.py install
 <span class="n">room</span><span class="o">.</span><span class="n">leave</span><span class="p">()</span>
 </pre></div>
 
-<h2>Client Usage</h2>
+<h2>
+<a name="client-usage" class="anchor" href="#client-usage"><span class="octicon octicon-link"></span></a>Client Usage</h2>
 
 <pre><code>Usage: camplight [options] &lt;command&gt; [args]
 
@@ -111,7 +114,8 @@ Environment variables:
   CAMPFIRE_VERBOSE      same as --verbose
 </code></pre>
 
-<h2>Testing</h2>
+<h2>
+<a name="testing" class="anchor" href="#testing"><span class="octicon octicon-link"></span></a>Testing</h2>
 
 <p>After cloning the repository, run the test suite using:</p>
 
@@ -141,11 +145,13 @@ coverage package:</p>
 
 <p>Now open <code>htmlcov/index.html</code> in your browser.</p>
 
-<h2>License</h2>
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
 
 <p>Camplight is licensed under the terms of the MIT License. See <a href="https://github.com/mlafeldt/camplight/blob/master/LICENSE">LICENSE</a> file.</p>
 
-<h2>Contact</h2>
+<h2>
+<a name="contact" class="anchor" href="#contact"><span class="octicon octicon-link"></span></a>Contact</h2>
 
 <ul>
 <li>Web: <a href="http://mlafeldt.github.com/camplight">http://mlafeldt.github.com/camplight</a>

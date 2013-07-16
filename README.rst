@@ -1,49 +1,55 @@
 Camplight
 =========
 
-Camplight is a Python implementation of the [Campfire API].
+Camplight is a Python implementation of the `Campfire
+API <https://github.com/37signals/campfire-api>`__.
 
-The project comes with a Python module that can be imported via `import camplight`
-and a simple command-line tool named `camplight` to utilize it.
-
+The project comes with a Python module that can be imported via
+``import camplight`` and a simple command-line tool named ``camplight``
+to utilize it.
 
 Installation
 ------------
 
 The easiest way to install Camplight and its dependencies:
 
+::
+
     $ pip install camplight
 
 Alternatively, you can install it from source:
+
+::
 
     $ git clone git://github.com/mlafeldt/camplight.git
     $ cd camplight/
     $ python setup.py install
 
-(Note that Camplight requires [Requests].)
-
+(Note that Camplight requires
+`Requests <http://python-requests.org>`__.)
 
 API Usage
 ---------
 
-```python
-from camplight import Request, Campfire
+.. code:: python
 
-request = Request('https://your-subdomain.campfirenow.com', 'your_token')
-campfire = Campfire(request)
+    from camplight import Request, Campfire
 
-account = campfire.account()
-rooms = campfire.rooms()
+    request = Request('https://your-subdomain.campfirenow.com', 'your_token')
+    campfire = Campfire(request)
 
-room = campfire.room('Danger')
-room.join()
-room.speak('ohai')
-room.leave()
-```
+    account = campfire.account()
+    rooms = campfire.rooms()
 
+    room = campfire.room('Danger')
+    room.join()
+    room.speak('ohai')
+    room.leave()
 
 Client Usage
 ------------
+
+::
 
     Usage: camplight [options] <command> [args]
 
@@ -83,51 +89,58 @@ Client Usage
       CAMPFIRE_ROOM         same as --room
       CAMPFIRE_VERBOSE      same as --verbose
 
-
 Testing
 -------
 
-[![Build Status](https://travis-ci.org/mlafeldt/camplight.png?branch=master)](https://travis-ci.org/mlafeldt/camplight)
+|Build Status|
 
 After cloning the repository, run the test suite using:
 
+::
+
     $ python setup.py test
 
-You can generate a coverage report using [coverage.py]. First, install the
-coverage package:
+You can generate a coverage report using
+`coverage.py <http://nedbatchelder.com/code/coverage/>`__. First,
+install the coverage package:
+
+::
 
     $ pip install coverage
 
 Now gather the data by running:
 
+::
+
     $ coverage run setup.py test
 
 And create a report:
+
+::
 
     $ coverage report
 
 You can also create a much nicer HTML report:
 
+::
+
     $ coverage html
 
-Now open `htmlcov/index.html` in your browser.
-
+Now open ``htmlcov/index.html`` in your browser.
 
 License
 -------
 
-Camplight is licensed under the terms of the MIT License. See [LICENSE] file.
-
+Camplight is licensed under the terms of the MIT License. See
+`LICENSE <https://github.com/mlafeldt/camplight/blob/master/LICENSE>`__
+file.
 
 Contact
 -------
 
-* Web: <http://mlafeldt.github.com/camplight>
-* Mail: <mathias.lafeldt@gmail.com>
-* Twitter: [@mlafeldt](https://twitter.com/mlafeldt)
+-  Web: http://mlafeldt.github.com/camplight
+-  Mail: mathias.lafeldt@gmail.com
+-  Twitter: `@mlafeldt <https://twitter.com/mlafeldt>`__
 
-
-[Campfire API]: https://github.com/37signals/campfire-api
-[LICENSE]: https://github.com/mlafeldt/camplight/blob/master/LICENSE
-[Requests]: http://python-requests.org
-[coverage.py]: http://nedbatchelder.com/code/coverage/
+.. |Build Status| image:: https://travis-ci.org/mlafeldt/camplight.png?branch=master
+   :target: https://travis-ci.org/mlafeldt/camplight

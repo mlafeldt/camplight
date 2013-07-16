@@ -30,8 +30,8 @@ setup(name='camplight',
       url='https://github.com/mlafeldt/camplight',
       license='MIT',
       description='Python implementation of the Campfire API',
-      long_description=open('README.rst').read() + '\n\n' +
-                       open('HISTORY.rst').read(),
+      long_description=open('rst/README.rst').read() + '\n\n' +
+                       open('rst/HISTORY.rst').read(),
       classifiers=['Development Status :: 5 - Production/Stable',
                    'Intended Audience :: Developers',
                    'Natural Language :: English',

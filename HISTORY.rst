@@ -1,6 +1,13 @@
 History
 =======
 
+v0.9.4 (Jul 16 2013)
+--------------------
+
+-  Convert documentation to reStructuredText for PyPI.
+-  Recommend using ``pip install camplight`` in README.
+-  Define one file per line in MANIFEST.in.
+
 v0.9.3 (Jul 10 2013)
 --------------------
 

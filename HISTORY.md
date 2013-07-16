@@ -2,6 +2,13 @@ History
 =======
 
 
+v0.9.5 (Jul 16 2013)
+--------------------
+
+* Generate reStructuredText from markdown using `python setup.py doc`. I want to
+  keep using markdown.
+
+
 v0.9.4 (Jul 16 2013)
 --------------------
 

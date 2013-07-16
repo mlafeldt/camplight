@@ -23,6 +23,26 @@ class PyTest(Command):
         sys.exit(errno)
 
 
+class PyPandoc(Command):
+    description = 'Generates the documentation in reStructuredText format.'
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def convert(self, infile, outfile):
+        import pypandoc
+        with open(outfile, 'w+') as f:
+            f.write(pypandoc.convert(infile, 'rst'))
+
+    def run(self):
+        self.convert('README.md', 'rst/README.rst')
+        self.convert('HISTORY.md', 'rst/HISTORY.rst')
+
+
 setup(name='camplight',
       version='0.9.4',
       author='Mathias Lafeldt',
@@ -30,8 +50,8 @@ setup(name='camplight',
       url='https://github.com/mlafeldt/camplight',
       license='MIT',
       description='Python implementation of the Campfire API',
-      long_description=open('README.rst').read() + '\n\n' +
-                       open('HISTORY.rst').read(),
+      long_description=open('rst/README.rst').read() + '\n\n' +
+                       open('rst/HISTORY.rst').read(),
       classifiers=['Development Status :: 5 - Production/Stable',
                    'Intended Audience :: Developers',
                    'Natural Language :: English',
@@ -53,4 +73,4 @@ setup(name='camplight',
       [console_scripts]
       camplight=camplight.cli:main
       """,
-      cmdclass={'test': PyTest})
+      cmdclass={'test': PyTest, 'doc': PyPandoc})

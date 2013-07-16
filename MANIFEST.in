@@ -1,3 +1,5 @@
-include HISTORY.rst
 include LICENSE
-include README.rst
+include HISTORY.md
+include README.md
+include rst/HISTORY.rst
+include rst/README.rst

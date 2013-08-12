@@ -65,7 +65,7 @@ Client Usage
     Room commands (require --room to be set):
       status                get general room information
       recent                list recent messages in the room
-      transcript            list all messages sent today to the room
+      transcript [date]     list all messages sent to the room (on date YYYY/MM/DD)
       uploads               list recently uploaded files in the room
       join                  join the room
       leave                 leave the room

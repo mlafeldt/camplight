@@ -60,6 +60,15 @@ class TestRoom(object):
         assert messages[0]['body'] == 'Hello World'
         assert messages[0]['type'] == MessageType.TEXT
 
+    def test_transcript_by_date(self):
+        date = '2013/08/12'
+        stub_get('/room/%s/transcript/%s.json' % (self.room_id, date), body="""
+            {"messages": [{"body": "Hello World", "type": "TextMessage"}]}""")
+        messages = self.room.transcript(date)
+        assert len(messages) == 1
+        assert messages[0]['body'] == 'Hello World'
+        assert messages[0]['type'] == MessageType.TEXT
+
     def test_uploads(self):
         stub_get('/room/%s/uploads.json' % self.room_id, body="""
             {"uploads": [{"name": "file.png", "content_type": "image/png"}]}""")

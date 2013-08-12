@@ -100,11 +100,11 @@ class Room(object):
         return self.request.get(self._path + '/recent')['messages']
 
     def transcript(self, date=None):
-        #expected date as as string '2013/08/07'
-        if date:
-            return self.request.get(self._path + '/transcript/' + date)['messages']
+        if date is not None:
+            path = self._path + '/transcript/' + date
         else:
-            return self.request.get(self._path + '/transcript')['messages']
+            path = self._path + '/transcript'
+        return self.request.get(path)['messages']
 
     def uploads(self):
         return self.request.get(self._path + '/uploads')['uploads']

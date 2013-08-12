@@ -44,7 +44,7 @@ class PyPandoc(Command):
 
 
 setup(name='camplight',
-      version='0.9.5',
+      version='0.9.6',
       author='Mathias Lafeldt',
       author_email='mathias.lafeldt@gmail.com',
       url='https://github.com/mlafeldt/camplight',

@@ -2,6 +2,13 @@ History
 =======
 
 
+v0.9.6 (Aug 12 2013)
+--------------------
+
+* Add optional date parameter to `Room.transcript()`. Format must be YYYY/MM/DD.
+  Contributed by @luchux.
+
+
 v0.9.5 (Jul 16 2013)
 --------------------
 

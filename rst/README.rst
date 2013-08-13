@@ -71,7 +71,7 @@ Client Usage
     Room commands (require --room to be set):
       status                get general room information
       recent                list recent messages in the room
-      transcript            list all messages sent today to the room
+      transcript [date]     list all messages sent to the room (on date YYYY/MM/DD)
       uploads               list recently uploaded files in the room
       join                  join the room
       leave                 leave the room
@@ -134,6 +134,15 @@ License
 Camplight is licensed under the terms of the MIT License. See
 `LICENSE <https://github.com/mlafeldt/camplight/blob/master/LICENSE>`__
 file.
+
+Contributing
+------------
+
+1. Fork it
+2. Create your feature branch (``git checkout -b my-new-feature``)
+3. Commit your changes (``git commit -am 'Add some feature'``)
+4. Push to the branch (``git push origin my-new-feature``)
+5. Create new Pull Request
 
 Contact
 -------
